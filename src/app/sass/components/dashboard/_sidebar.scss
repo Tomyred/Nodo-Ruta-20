@@ -1,0 +1,40 @@
+@import "../../absctracts/variables";
+@import "../../absctracts/mixins";
+
+.sidebar {
+    color: #ffff;
+    width: 20%;
+    height: 100vh;
+}
+
+.sidebar h2 {
+    margin-left: 15px;
+}
+
+.user__info {
+    text-align: center;
+}
+
+.profile__image {
+    width: 150px;
+    border-radius: 50%;
+    height: 150px;
+    object-fit: cover;
+}
+
+.navigation__title {
+    @include navigationElement();
+}
+
+.navigation__title:hover {
+    color: aqua;
+    background-color: $bgcolor__hover;
+}
+
+.father {
+    justify-content: space-between;
+}
+
+.child {
+    margin-left: 15px;
+}

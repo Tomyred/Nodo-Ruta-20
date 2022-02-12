@@ -1,0 +1,36 @@
+@mixin bgImage($image) {
+    background: url($image);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-blend-mode: overlay;
+}
+
+@mixin flexCenter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+@mixin pageContainer() {
+    padding: 20px;
+    width: 95%;
+    height: 100vh;
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box; /* Firefox, other Gecko */
+    box-sizing: border-box; /* Opera/IE 8+ */
+    @media screen and (min-width: 900px) {
+        width: 80%;
+    }
+}
+
+@mixin navigationElement() {
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    padding: 10px;
+    text-decoration: none;
+    color: #ffff;
+    cursor: pointer;
+}

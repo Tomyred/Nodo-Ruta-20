@@ -1,0 +1,15 @@
+@import "./absctracts/variables";
+@import "./absctracts/mixins";
+@import "./components/dashboard/sidebar";
+@import "./components/dashboard/pageCarded";
+@import "./components/dashboard/index";
+
+body {
+    font-family: $fonts;
+    background-color: $bgcolor;
+    margin: 0;
+}
+
+.flex__center {
+    @include flexCenter();
+}
