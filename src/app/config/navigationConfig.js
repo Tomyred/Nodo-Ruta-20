@@ -26,6 +26,12 @@ const navigationConfig = [
             },
         ],
     },
+    {
+        title: "Talleres cooperativos",
+        icon: "fa-solid fa-tree",
+        type: "item",
+        route: "/courses",
+    },
 ];
 
 export default navigationConfig;

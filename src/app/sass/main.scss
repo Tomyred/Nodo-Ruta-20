@@ -3,6 +3,7 @@
 @import "./components/dashboard/sidebar";
 @import "./components/dashboard/pageCarded";
 @import "./components/dashboard/index";
+@import "./components/keypad/keypad.scss";
 
 body {
     font-family: $fonts;

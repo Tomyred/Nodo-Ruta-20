@@ -8,7 +8,7 @@ const Dashboard = () => {
     return (
         <div className="dashboard">
             <Sidebar />
-            <div className="container">
+            <div className="big__container">
                 <div className="page__container">
                     <Routes>
                         <Route path="*" exact={true} element={<Page404 />} />
