@@ -1,0 +1,34 @@
+@import "../../absctracts/mixins";
+
+.modal {
+    background-color: #ffff;
+    border: 2px solid slategray;
+    width: 80%;
+    margin: auto;
+    margin-top: 10%;
+    padding: 20px;
+    text-align: center;
+    @media screen and (min-width: 900px) {
+        width: 30%;
+    }
+}
+
+.modal > input {
+    display: block;
+    width: 100%;
+    border-radius: 6px;
+    height: 50%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-top: 10px;
+    padding: 10px;
+    @include boxSizing();
+}
+
+.modal > button {
+    @include button(#28a745);
+}
+
+.modal > button:active {
+    background-color: #167e2f;
+}

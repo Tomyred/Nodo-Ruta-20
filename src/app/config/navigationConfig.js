@@ -13,7 +13,7 @@ const navigationConfig = [
         type: "collapse",
         children: [
             {
-                title: "Placeholder 1",
+                title: "Enlaces de {{preguntar a Fer}}}",
                 icon: "fa-solid fa-link",
                 type: "item",
                 route: "/keypad",

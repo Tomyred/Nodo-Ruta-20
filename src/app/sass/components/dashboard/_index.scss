@@ -6,6 +6,7 @@
 
 .big__container {
     @include bigContainer();
+    @include boxSizing();
 }
 
 .page__container {
@@ -13,8 +14,5 @@
     border-radius: 30px;
     height: 95%;
     margin: 20px;
-    object-fit: cover;
-    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
-    -moz-box-sizing: border-box; /* Firefox, other Gecko */
-    box-sizing: border-box; /* Opera/IE 8+ */
+    @include boxSizing();
 }

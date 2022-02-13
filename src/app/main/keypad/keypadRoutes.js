@@ -1,4 +1,4 @@
-import Keypad from "./keypad";
+import Keypad from ".";
 
 const keypadRoutes = [
     {
