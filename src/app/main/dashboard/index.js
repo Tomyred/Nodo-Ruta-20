@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Routes } from "react-router";
+import { Navigate, Route, Routes } from "react-router";
 import routes from "../../config/routesConfig";
 import Page404 from "../../pages/page404";
 import Sidebar from "./sidebar";
@@ -12,6 +12,11 @@ const Dashboard = () => {
                 <div className="page__container">
                     <Routes>
                         <Route path="*" exact={true} element={<Page404 />} />
+                        <Route
+                            path="/"
+                            exact={true}
+                            element={<Navigate to="/home" />}
+                        />
                         {routes.map(routeConfig =>
                             routeConfig.map((route, i) => (
                                 <Route
