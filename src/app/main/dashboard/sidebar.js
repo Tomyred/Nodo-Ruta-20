@@ -10,7 +10,6 @@ const Sidebar = () => {
     const handleClick = element => {
         setOpen({ [element]: !open[element] });
     };
-    console.log(window.innerWidth);
     return (
         <div className="sidebar">
             <motion.h1

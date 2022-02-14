@@ -3,6 +3,7 @@
 .modal {
     background-color: #ffff;
     border: 2px solid slategray;
+    border-radius: 30px;
     width: 80%;
     margin: auto;
     margin-top: 10%;
@@ -13,7 +14,7 @@
     }
 }
 
-.modal > input {
+.form__element {
     display: block;
     width: 100%;
     border-radius: 6px;
@@ -25,10 +26,10 @@
     @include boxSizing();
 }
 
-.modal > button {
+.modal > form > button {
     @include button(#28a745);
 }
 
-.modal > button:active {
+.modal > form > button:active {
     background-color: #167e2f;
 }
