@@ -1,5 +1,5 @@
 import homeRoutes from "../main/home/homeRoutes";
-import keypadRoutes from "../main/keypad/keypadRoutes";
+import keypadRoutes from "../main/linksKeypads/linksKeypadsRoutes";
 
 const routes = [keypadRoutes, homeRoutes];
 

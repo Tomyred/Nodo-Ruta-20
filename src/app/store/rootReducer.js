@@ -1,8 +1,8 @@
 import { combineReducers } from "redux";
-import reducer from "../main/keypad/store/reducers/keypadReducer";
+import keypadsReducer from "../main/linksKeypads/store/linksKeypadReducer";
 
 const rootReducer = combineReducers({
-    keypad: reducer,
+    keypadsReducer: keypadsReducer,
 });
 
 export default rootReducer;

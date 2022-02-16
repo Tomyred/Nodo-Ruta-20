@@ -13,16 +13,16 @@ const navigationConfig = [
         type: "collapse",
         children: [
             {
-                title: "Enlaces 1",
-                icon: "fa-solid fa-link",
+                title: "Contactos",
+                icon: "fa-solid fa-users",
                 type: "item",
-                route: "/keypad",
+                route: "/keypad/contacts",
             },
             {
-                title: "Placeholder",
-                icon: "fa-solid fa-link",
+                title: "Entidades",
+                icon: "fa-solid fa-building",
                 type: "item",
-                route: "/placeholder",
+                route: "/keypad/entities",
             },
         ],
     },

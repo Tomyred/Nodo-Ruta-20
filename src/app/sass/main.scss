@@ -1,10 +1,7 @@
 @import "./absctracts/variables";
 @import "./absctracts/mixins";
-@import "./components/dashboard/sidebar";
 @import "./components/dashboard/index";
-@import "./components/keypad/keypad.scss";
-@import "./components/keypad/dialogForm.scss";
-@import "./components/keypad/card.scss";
+@import "./components/linksKeypads/index";
 
 body {
     font-family: $fonts;

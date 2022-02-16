@@ -2,7 +2,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import Modal from "react-modal/lib/components/Modal";
 import { useDispatch } from "react-redux";
-import { saveLink } from "../store/actions/keypadActions";
+import { saveLink } from "../store/actions";
 import select_colors from "./colorSelectItems";
 
 const DialogForm = ({ open, setOpen }) => {

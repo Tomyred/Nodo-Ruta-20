@@ -1,4 +1,5 @@
 @import "../../absctracts/mixins";
+@import "./sidebar";
 
 .dashboard {
     @include flexCenter();

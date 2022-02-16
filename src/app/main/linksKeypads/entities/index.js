@@ -2,19 +2,19 @@ import { motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
-import LoadingScreen from "../../pages/loadingScreen";
+import LoadingScreen from "../../../pages/loadingScreen";
 import Card from "./card";
 import DialogForm from "./dialog/form";
-import { loadLinks, removeLink } from "./store/actions/keypadActions";
+import { loadLinks, removeLink } from "./store/actions";
 
-const Keypad = () => {
+const EntitiesKeypad = () => {
     const dispatch = useDispatch();
     const [open, setOpen] = useState(false);
-    const links = useSelector(store => store.keypad.data);
-    const loaded = useSelector(store => store.keypad.loaded);
-    const loading = useSelector(store => store.keypad.loading);
-    const saved = useSelector(store => store.keypad.saved);
-    const deleted = useSelector(store => store.keypad.deleted);
+    const links = useSelector(store => store.keypadsReducer.entities.data);
+    const loaded = useSelector(store => store.keypadsReducer.entities.loaded);
+    const loading = useSelector(store => store.keypadsReducer.entities.loading);
+    const saved = useSelector(store => store.keypadsReducer.entities.saved);
+    const deleted = useSelector(store => store.keypadsReducer.entities.deleted);
 
     useEffect(() => {
         if (loaded === false) {
@@ -33,9 +33,21 @@ const Keypad = () => {
         dispatch(removeLink(id));
     };
 
-    const cards = links.map((link, i) => {
-        return <Card key={i} index={i} link={link} deleteCard={deleteCard} />;
-    });
+    const cards =
+        links.length === 0 ? (
+            <h3 className="grid__center">No hay datos</h3>
+        ) : (
+            links.map((link, i) => {
+                return (
+                    <Card
+                        key={i}
+                        index={i}
+                        link={link}
+                        deleteCard={deleteCard}
+                    />
+                );
+            })
+        );
 
     return (
         <div>
@@ -50,7 +62,7 @@ const Keypad = () => {
                             transition: { delay: 0.5 },
                         }}
                     >
-                        <h2>Enlaces</h2>
+                        <h2>Entidades</h2>
                         <p>Consola de enlaces</p>
                     </motion.div>
                 </div>
@@ -66,4 +78,4 @@ const Keypad = () => {
     );
 };
 
-export default Keypad;
+export default EntitiesKeypad;

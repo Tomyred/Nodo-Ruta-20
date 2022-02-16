@@ -1,4 +1,6 @@
 @import "../../absctracts/mixins";
+@import "./card.scss";
+@import "./dialogForm.scss";
 
 .header {
     @include componentHeader();
