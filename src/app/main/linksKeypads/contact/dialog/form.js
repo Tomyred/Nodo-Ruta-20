@@ -8,6 +8,7 @@ import select_colors from "./colorSelectItems";
 const DialogForm = ({ open, setOpen }) => {
     const dispatch = useDispatch();
     function closeModal() {
+        reset();
         setOpen(false);
     }
 
@@ -16,6 +17,7 @@ const DialogForm = ({ open, setOpen }) => {
         handleSubmit,
         // watch,
         // formState: { errors },
+        reset,
     } = useForm();
 
     const onSubmit = data => {
