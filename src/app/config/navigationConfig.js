@@ -13,16 +13,16 @@ const navigationConfig = [
         type: "collapse",
         children: [
             {
-                title: "Enlaces de {{preguntar a Fer}}}",
+                title: "Enlaces 1",
                 icon: "fa-solid fa-link",
                 type: "item",
                 route: "/keypad",
             },
             {
-                title: "Placeholder 2",
+                title: "Placeholder",
                 icon: "fa-solid fa-link",
                 type: "item",
-                route: "/placeholder2",
+                route: "/placeholder",
             },
         ],
     },

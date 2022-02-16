@@ -1,8 +1,17 @@
+import { motion } from "framer-motion";
 import React from "react";
 
-const Card = ({ link, deleteCard }) => {
+const Card = ({ index, link, deleteCard }) => {
     return (
-        <div className="card">
+        <motion.div
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={{
+                opacity: 1,
+                scale: 1,
+                transition: { delay: index * 0.2 },
+            }}
+            className="card"
+        >
             <div
                 className="card__header"
                 style={{
@@ -24,7 +33,7 @@ const Card = ({ link, deleteCard }) => {
                     </button>
                 </div>
             </div>
-        </div>
+        </motion.div>
     );
 };
 

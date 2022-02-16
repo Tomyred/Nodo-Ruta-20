@@ -37,7 +37,7 @@ const Keypad = () => {
             <div>
                 <div className="header">
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.5 }}
+                        initial={{ opacity: 0, scale: 0.2 }}
                         animate={{
                             opacity: 1,
                             scale: 1,
@@ -54,7 +54,12 @@ const Keypad = () => {
                 </div>
                 <div className="card__container">
                     {links.map((link, i) => (
-                        <Card key={i} link={link} deleteCard={deleteCard} />
+                        <Card
+                            key={i}
+                            index={i}
+                            link={link}
+                            deleteCard={deleteCard}
+                        />
                     ))}
                 </div>
             </div>
