@@ -20,12 +20,13 @@ const DialogForm = ({ open, setOpen }) => {
 
     const onSubmit = data => {
         dispatch(saveLink(data));
-        closeModal();
+        // closeModal();
     };
 
     return (
         <div className="modal__container">
             <Modal
+                ariaHideApp={false}
                 isOpen={open}
                 onRequestClose={closeModal}
                 contentLabel="Example Modal"

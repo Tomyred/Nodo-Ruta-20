@@ -11,8 +11,10 @@
 
 .page__container {
     background-color: #ffff;
-    border-radius: 30px;
+    border-radius: 10px;
     height: 95%;
     margin: 20px;
     @include boxSizing();
+    overflow-y: auto;
+    overflow-x: auto;
 }

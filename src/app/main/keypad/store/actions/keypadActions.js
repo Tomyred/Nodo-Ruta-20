@@ -32,8 +32,8 @@ export const saveLink = link => async dispatch => {
             type: types.LINK_SAVE_INIT,
         });
 
-        const res = api.save(link);
-
+        const res = await api.save(link);
+        console.log(res);
         if (res.data.error === false) {
             dispatch({
                 type: types.LINK_SAVE_SUCCEED,
@@ -46,6 +46,28 @@ export const saveLink = link => async dispatch => {
     } catch (error) {
         dispatch({
             type: types.LINK_SAVE_FAILED,
+        });
+    }
+};
+
+export const removeLink = id => async dispatch => {
+    try {
+        dispatch({
+            type: types.LINK_DELETE_INIT,
+        });
+        const res = await api.remove(id);
+        if (res.data.error === false) {
+            dispatch({
+                type: types.LINK_DELETE_SUCCEED,
+            });
+        } else {
+            dispatch({
+                type: types.LINK_DELETE_FAILED,
+            });
+        }
+    } catch (error) {
+        dispatch({
+            type: types.LINK_DELETE_FAILED,
         });
     }
 };

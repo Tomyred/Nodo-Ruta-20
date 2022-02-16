@@ -1,0 +1,60 @@
+.card {
+    width: 30%;
+    min-width: 300px;
+    height: 250px;
+    border-radius: 10px;
+    text-align: center;
+    margin: 20px;
+    position: relative;
+    box-shadow: -1px 14px 31px -5px rgba(0, 0, 0, 0.75);
+    -webkit-box-shadow: -1px 14px 31px -5px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: -1px 14px 31px -5px rgba(0, 0, 0, 0.75);
+}
+
+.card__header {
+    border-radius: 10px 10px 0 0;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 600;
+}
+
+.fa-solid {
+    cursor: pointer;
+}
+
+.card__body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card__url {
+    color: darkgray;
+}
+
+.card__actions {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.card__button {
+    @include button(#28a74600);
+    border: 1px solid black;
+    width: 30%;
+}
+
+.card__button:active {
+    background-color: #167e2f;
+}
+
+.card__button > a {
+    text-decoration: none;
+    color: inherit;
+}

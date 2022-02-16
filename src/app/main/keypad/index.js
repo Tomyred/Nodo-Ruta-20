@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import Card from "./card";
 import DialogForm from "./dialog/form";
-import { loadLinks } from "./store/actions/keypadActions";
+import { loadLinks, removeLink } from "./store/actions/keypadActions";
 
 const Keypad = () => {
     const dispatch = useDispatch();
@@ -12,6 +12,7 @@ const Keypad = () => {
     const links = useSelector(store => store.keypad.data);
     const loaded = useSelector(store => store.keypad.loaded);
     const saved = useSelector(store => store.keypad.saved);
+    const deleted = useSelector(store => store.keypad.deleted);
 
     useEffect(() => {
         if (loaded === false) {
@@ -20,13 +21,20 @@ const Keypad = () => {
         if (saved) {
             dispatch(loadLinks());
         }
+        if (deleted) {
+            window.location.reload();
+        }
         // eslint-disable-next-line
-    }, [saved]);
+    }, [saved, deleted]);
+
+    const deleteCard = id => {
+        dispatch(removeLink(id));
+    };
 
     return (
         <div>
             <DialogForm open={open} setOpen={setOpen} />
-            <div className="link_keypad__container">
+            <div>
                 <div className="header">
                     <motion.div
                         initial={{ opacity: 0, scale: 0.5 }}
@@ -46,7 +54,7 @@ const Keypad = () => {
                 </div>
                 <div className="card__container">
                     {links.map((link, i) => (
-                        <Card key={i} link={link} />
+                        <Card key={i} link={link} deleteCard={deleteCard} />
                     ))}
                 </div>
             </div>

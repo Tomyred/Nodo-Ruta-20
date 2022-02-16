@@ -43,6 +43,7 @@ const reducer = (state = initState, action) => {
                 savingError: false,
             };
         case "LINK_SAVE_SUCCEED":
+            console.log(action);
             return {
                 ...state,
                 saving: false,
