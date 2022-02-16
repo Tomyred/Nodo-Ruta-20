@@ -33,7 +33,6 @@ export const saveLink = link => async dispatch => {
         });
 
         const res = await api.save(link);
-        console.log(res);
         if (res.data.error === false) {
             dispatch({
                 type: types.LINK_SAVE_SUCCEED,

@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
+import LoadingScreen from "../../pages/loadingScreen";
 import Card from "./card";
 import DialogForm from "./dialog/form";
 import { loadLinks, removeLink } from "./store/actions/keypadActions";
@@ -11,6 +12,7 @@ const Keypad = () => {
     const [open, setOpen] = useState(false);
     const links = useSelector(store => store.keypad.data);
     const loaded = useSelector(store => store.keypad.loaded);
+    const loading = useSelector(store => store.keypad.loading);
     const saved = useSelector(store => store.keypad.saved);
     const deleted = useSelector(store => store.keypad.deleted);
 
@@ -30,6 +32,10 @@ const Keypad = () => {
     const deleteCard = id => {
         dispatch(removeLink(id));
     };
+
+    const cards = links.map((link, i) => {
+        return <Card key={i} index={i} link={link} deleteCard={deleteCard} />;
+    });
 
     return (
         <div>
@@ -53,14 +59,7 @@ const Keypad = () => {
                     <button onClick={() => setOpen(true)}>Nuevo enlace</button>
                 </div>
                 <div className="card__container">
-                    {links.map((link, i) => (
-                        <Card
-                            key={i}
-                            index={i}
-                            link={link}
-                            deleteCard={deleteCard}
-                        />
-                    ))}
+                    {loading ? <LoadingScreen /> : cards}
                 </div>
             </div>
         </div>

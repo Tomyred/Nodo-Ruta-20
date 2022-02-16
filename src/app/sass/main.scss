@@ -1,7 +1,6 @@
 @import "./absctracts/variables";
 @import "./absctracts/mixins";
 @import "./components/dashboard/sidebar";
-@import "./components/dashboard/pageCarded";
 @import "./components/dashboard/index";
 @import "./components/keypad/keypad.scss";
 @import "./components/keypad/dialogForm.scss";
@@ -15,4 +14,14 @@ body {
 
 .flex__center {
     @include flexCenter();
+}
+
+.grid__center {
+    display: grid;
+    place-content: center;
+    height: 100%;
+}
+
+.soft__text {
+    color: #a9a9a9;
 }

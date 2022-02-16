@@ -20,7 +20,7 @@ const DialogForm = ({ open, setOpen }) => {
 
     const onSubmit = data => {
         dispatch(saveLink(data));
-        // closeModal();
+        closeModal();
     };
 
     return (
