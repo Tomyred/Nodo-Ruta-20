@@ -26,7 +26,7 @@ const Card = ({ index, link, deleteCard }) => {
             </div>
             <div className="card__body">
                 <p className="card__description">{link.description}</p>
-                <p className="card__url">{link.url}</p>
+                <p className="soft__text">{link.url}</p>
                 <div className="card__actions">
                     <button className="card__button">
                         <a href={link.url}> Ir </a>

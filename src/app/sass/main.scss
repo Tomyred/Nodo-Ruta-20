@@ -3,6 +3,16 @@
 @import "./components/dashboard/index";
 @import "./components/linksKeypads/index";
 
+* {
+    -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+    -moz-box-sizing: border-box; /* Firefox, other Gecko */
+    box-sizing: border-box; /* Opera/IE 8+ */
+}
+
+#root {
+    height: 100vh;
+}
+
 body {
     font-family: $fonts;
     background-color: $bgcolor;
@@ -21,5 +31,5 @@ body {
 }
 
 .soft__text {
-    color: #a9a9a9;
+    color: $soft__text;
 }

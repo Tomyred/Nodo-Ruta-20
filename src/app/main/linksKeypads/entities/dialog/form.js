@@ -2,8 +2,8 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import Modal from "react-modal/lib/components/Modal";
 import { useDispatch } from "react-redux";
+import FORM_COLORS from "../../formColors";
 import { saveLink } from "../store/actions";
-import select_colors from "./colorSelectItems";
 
 const DialogForm = ({ open, setOpen }) => {
     const dispatch = useDispatch();
@@ -54,7 +54,7 @@ const DialogForm = ({ open, setOpen }) => {
                         {...register("url")}
                     />
                     <select className="form__element" {...register("color")}>
-                        {select_colors.map((color, i) => (
+                        {FORM_COLORS.map((color, i) => (
                             <option key={i} value={color.value}>
                                 {color.name}
                             </option>

@@ -7,7 +7,6 @@
 
 .big__container {
     @include bigContainer();
-    @include boxSizing();
 }
 
 .page__container {
@@ -15,7 +14,6 @@
     border-radius: 10px;
     height: 95%;
     margin: 15px;
-    @include boxSizing();
     overflow-y: auto;
     overflow-x: auto;
 }

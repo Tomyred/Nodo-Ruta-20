@@ -2,10 +2,8 @@
 @import "../../absctracts/mixins";
 
 .sidebar {
-    color: #ffff;
     width: 20%;
-    height: 100vh;
-    overflow-y: auto;
+    @include sidebar();
 }
 
 .sidebar h2 {
