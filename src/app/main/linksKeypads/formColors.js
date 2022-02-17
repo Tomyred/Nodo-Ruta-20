@@ -1,4 +1,4 @@
-const FORM_COLORS = [
+const form_colors = [
     { name: "Azul", value: "#2196f3" },
     { name: "Rojo", value: "#c4302b" },
     { name: "Verde", value: "#9acd32" },
@@ -11,4 +11,4 @@ const FORM_COLORS = [
     { name: "Salmón", value: "#e9967a" },
 ];
 
-export default FORM_COLORS;
+export default form_colors;

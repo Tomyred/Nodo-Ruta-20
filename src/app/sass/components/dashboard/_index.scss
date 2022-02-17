@@ -1,19 +1,29 @@
 @import "../../absctracts/mixins";
 @import "./sidebar";
+@import "./topNavbar";
+@import "./navigation";
 
 .dashboard {
     @include flexCenter();
+    height: 100%;
 }
 
 .big__container {
-    @include bigContainer();
+    height: 100%;
+    width: 100%;
+    padding: 10px;
+    @media screen and (min-width: 800px) {
+        width: 80%;
+        padding: 20px;
+    }
 }
 
 .page__container {
     background-color: #ffff;
     border-radius: 10px;
-    height: 95%;
-    margin: 15px;
-    overflow-y: auto;
-    overflow-x: auto;
+    height: 90%;
+    overflow: auto;
+    @media screen and (min-width: 800px) {
+        height: 100%;
+    }
 }

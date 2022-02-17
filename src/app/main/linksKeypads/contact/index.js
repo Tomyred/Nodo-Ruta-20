@@ -66,7 +66,7 @@ const ContactKeypad = () => {
                         <p>Consola de enlaces</p>
                     </motion.div>
                 </div>
-
+                <hr />
                 <div className="button__container">
                     <button onClick={() => setOpen(true)}>Nuevo enlace</button>
                 </div>
