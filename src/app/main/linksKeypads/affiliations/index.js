@@ -68,7 +68,7 @@ const AffiliationsKeypad = () => {
                             transition: { delay: 0.5 },
                         }}
                     >
-                        <h2>Adhesiones</h2>
+                        <h2>Afiliaciones</h2>
                         <p>Consola de enlaces</p>
                     </motion.div>
                 </div>
