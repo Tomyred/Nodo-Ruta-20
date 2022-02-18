@@ -68,7 +68,7 @@ const CooperativesKeypad = () => {
                             transition: { delay: 0.5 },
                         }}
                     >
-                        <h2>cooperativesos</h2>
+                        <h2>Cooperativas</h2>
                         <p>Consola de enlaces</p>
                     </motion.div>
                 </div>

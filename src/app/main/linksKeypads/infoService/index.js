@@ -7,7 +7,7 @@ import Card from "./card";
 import DialogForm from "./dialog/form";
 import { loadLinks, removeLink } from "./store/actions";
 
-const infoServiceKeypad = () => {
+const InfoServiceKeypad = () => {
     const dispatch = useDispatch();
     const [open, setOpen] = useState(false);
     const links = useSelector(store => store.keypadsReducer.infoService.data);
@@ -84,4 +84,4 @@ const infoServiceKeypad = () => {
     );
 };
 
-export default infoServiceKeypad;
+export default InfoServiceKeypad;

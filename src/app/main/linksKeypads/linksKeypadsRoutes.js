@@ -7,6 +7,12 @@ import FormalitiesKeypad from "./formalities";
 import AccessionsKeypad from "./accessions";
 import AffiliationsKeypad from "./affiliations";
 import CitizenEducationKeypad from "./citizenEducation";
+import CooperativesKeypad from "./cooperatives";
+import DACBonusesKeypad from "./DACBonuses";
+import InfoServiceKeypad from "./infoService";
+import JobBankKeypad from "./jobBank";
+import PlatformsKeypad from "./platforms";
+import PoliticEducationKeypad from "./politicEducation";
 
 const keypadRoutes = [
     {
@@ -53,6 +59,36 @@ const keypadRoutes = [
         path: "/keypad/citizen-education",
         exact: true,
         component: <CitizenEducationKeypad />,
+    },
+    {
+        path: "/keypad/cooperatives",
+        exact: true,
+        component: <CooperativesKeypad />,
+    },
+    {
+        path: "/keypad/dac-bonuses",
+        exact: true,
+        component: <DACBonusesKeypad />,
+    },
+    {
+        path: "/keypad/platforms",
+        exact: true,
+        component: <PlatformsKeypad />,
+    },
+    {
+        path: "/keypad/info-service",
+        exact: true,
+        component: <InfoServiceKeypad />,
+    },
+    {
+        path: "/keypad/job-Bank",
+        exact: true,
+        component: <JobBankKeypad />,
+    },
+    {
+        path: "/keypad/politic-education",
+        exact: true,
+        component: <PoliticEducationKeypad />,
     },
 ];
 
