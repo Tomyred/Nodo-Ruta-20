@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const endpoint = "https://nodo-ruta20-api.herokuapp.com/v1/links/contacts";
+const endpoint = "https://nodo-ruta20-api.herokuapp.com/v1/links/info-service";
 
 export const load = () => axios.get(endpoint);
 export const save = link => axios.post(endpoint, link);

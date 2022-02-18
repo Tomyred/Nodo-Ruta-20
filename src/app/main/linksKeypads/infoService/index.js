@@ -7,14 +7,20 @@ import Card from "./card";
 import DialogForm from "./dialog/form";
 import { loadLinks, removeLink } from "./store/actions";
 
-const ContactKeypad = () => {
+const infoServiceKeypad = () => {
     const dispatch = useDispatch();
     const [open, setOpen] = useState(false);
-    const links = useSelector(store => store.keypadsReducer.contact.data);
-    const loaded = useSelector(store => store.keypadsReducer.contact.loaded);
-    const loading = useSelector(store => store.keypadsReducer.contact.loading);
-    const saved = useSelector(store => store.keypadsReducer.contact.saved);
-    const deleted = useSelector(store => store.keypadsReducer.contact.deleted);
+    const links = useSelector(store => store.keypadsReducer.infoService.data);
+    const loaded = useSelector(
+        store => store.keypadsReducer.infoService.loaded
+    );
+    const loading = useSelector(
+        store => store.keypadsReducer.infoService.loading
+    );
+    const saved = useSelector(store => store.keypadsReducer.infoService.saved);
+    const deleted = useSelector(
+        store => store.keypadsReducer.infoService.deleted
+    );
 
     useEffect(() => {
         if (loaded === false) {
@@ -78,4 +84,4 @@ const ContactKeypad = () => {
     );
 };
 
-export default ContactKeypad;
+export default infoServiceKeypad;

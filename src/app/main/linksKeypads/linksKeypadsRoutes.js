@@ -3,7 +3,10 @@ import EntitiesKeypad from "./entities";
 import CitizenDefenseKeypad from "./citizenDefense";
 import ProjectsKeypad from "./projects";
 import ScheduleKeypad from "./schedule";
-import ProceduresKeypad from "./procedures";
+import FormalitiesKeypad from "./formalities";
+import AccessionsKeypad from "./accessions";
+import AffiliationsKeypad from "./affiliations";
+import CitizenEducationKeypad from "./citizenEducation";
 
 const keypadRoutes = [
     {
@@ -32,9 +35,24 @@ const keypadRoutes = [
         component: <ScheduleKeypad />,
     },
     {
-        path: "/keypad/procedures",
+        path: "/keypad/formalities",
         exact: true,
-        component: <ProceduresKeypad />,
+        component: <FormalitiesKeypad />,
+    },
+    {
+        path: "/keypad/accessions",
+        exact: true,
+        component: <AccessionsKeypad />,
+    },
+    {
+        path: "/keypad/affiliations",
+        exact: true,
+        component: <AffiliationsKeypad />,
+    },
+    {
+        path: "/keypad/citizen-education",
+        exact: true,
+        component: <CitizenEducationKeypad />,
     },
 ];
 

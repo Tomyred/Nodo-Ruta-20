@@ -1,4 +1,4 @@
-import * as types from "../types/index.js.js";
+import * as types from "../types/index.js";
 import * as api from "../api";
 
 export const loadLinks = () => async dispatch => {
