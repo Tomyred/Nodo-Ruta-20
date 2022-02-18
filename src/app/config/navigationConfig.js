@@ -43,6 +43,12 @@ const navigationConfig = [
                 route: "/keypad/projects",
             },
             {
+                title: "Servicios informativos",
+                icon: "fa-solid fa-info",
+                type: "item",
+                route: "/keypad/info-service",
+            },
+            {
                 title: "Agenda",
                 icon: "fa-solid fa-calendar",
                 type: "item",
