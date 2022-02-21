@@ -105,10 +105,29 @@ const navigationConfig = [
         ],
     },
     {
-        title: "Talleres cooperativos",
-        icon: "fa-solid fa-tree",
-        type: "item",
-        route: "/courses",
+        title: "Horarios",
+        icon: "fa-solid fa-clock",
+        type: "collapse",
+        children: [
+            {
+                title: "Radio",
+                icon: "fa-solid fa-tower-broadcast",
+                type: "item",
+                route: "/schedule/radio",
+            },
+            {
+                title: "Aulas",
+                icon: "fa-solid fa-school",
+                type: "item",
+                route: "/schedule/classroom",
+            },
+            {
+                title: "Aula virtual",
+                icon: "fa-solid fa-chalkboard-user",
+                type: "item",
+                route: "/schedule/virtual-classroom",
+            },
+        ],
     },
 ];
 
