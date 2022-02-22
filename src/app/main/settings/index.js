@@ -5,7 +5,7 @@ import Security from "./settingsComponents/security";
 import SettingsNavigation from "./settingsNavigation";
 
 const ConfigurationPanel = () => {
-    const [tabValue, setTabValue] = useState(0);
+    const [tabValue, setTabValue] = useState(1);
 
     const renderComponent = () => {
         if (tabValue === 0) {

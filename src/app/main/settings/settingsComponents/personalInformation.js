@@ -4,23 +4,22 @@ import { setUser } from "../store/actions";
 
 const PersonalInformation = () => {
     const dispatch = useDispatch();
+    const reader = new FileReader();
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
-    const [file, setFile] = useState();
-    const [profilePic, setProfilePic] = useState();
+    const [selectedFile, setSelectedFile] = useState();
+    const [profilePic, setProfilePic] = useState(null);
 
     useEffect(() => {
-        if (file) {
-            const reader = new FileReader();
-
+        if (selectedFile) {
             reader.onloadend = () => {
                 setProfilePic(reader.result);
             };
-            reader.readAsDataURL(file);
+            reader.readAsDataURL(selectedFile);
         } else {
             setProfilePic(null);
         }
-    }, [file]);
+    }, [selectedFile]);
 
     const fileInputRef = useRef();
 
@@ -36,9 +35,9 @@ const PersonalInformation = () => {
     const handleImageSelect = e => {
         const file = e.target.files[0];
         if (file) {
-            setFile(file);
+            setSelectedFile(file);
         } else {
-            setFile(null);
+            setSelectedFile(null);
         }
     };
 
@@ -79,7 +78,7 @@ const PersonalInformation = () => {
                 type="file"
                 accept="image/*"
                 ref={fileInputRef}
-                onClick={e => handleImageSelect(e)}
+                onChange={e => handleImageSelect(e)}
             />
             <button className="contrast__button" onClick={handleClick}>
                 Enviar
