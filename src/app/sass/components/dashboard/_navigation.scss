@@ -15,3 +15,17 @@
 .child {
     margin-left: 15px;
 }
+
+.session_options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-top: 20px;
+    padding: 20px;
+}
+
+.session_option {
+    color: #fff;
+    font-size: 12px;
+}

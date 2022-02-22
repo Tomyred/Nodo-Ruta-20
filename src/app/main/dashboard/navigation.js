@@ -18,6 +18,14 @@ const Navigation = props => {
 
     return (
         <div className="navigation">
+            <div className="session_options">
+                <Link className="session_option" to="/settings">
+                    Configuración
+                </Link>
+                <Link className="session_option" to="/">
+                    Cerrar sesión
+                </Link>
+            </div>
             {navigationConfig.map(element => {
                 if (element.type === "collapse") {
                     return (

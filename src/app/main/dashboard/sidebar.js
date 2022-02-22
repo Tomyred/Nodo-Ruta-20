@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import React from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import Navigation from "./navigation";
 
 const Sidebar = () => {
@@ -25,7 +24,7 @@ const Sidebar = () => {
                     src={
                         user.profilePic
                             ? user.profilePic
-                            : "https://cdn.pixabay.com/photo/2016/11/30/17/10/web-1873373_1280.png"
+                            : "https://www.pngfind.com/pngs/m/676-6764065_default-profile-picture-transparent-hd-png-download.png"
                     }
                     alt="profile_pic"
                 />
@@ -35,14 +34,6 @@ const Sidebar = () => {
                         ? `${user.firstName} ${user.lastName}`
                         : "John Doe"}{" "}
                 </h3>
-                <div className="session_options">
-                    <Link className="session_option" to="/settings">
-                        Configuración
-                    </Link>
-                    <Link className="session_option" to="/">
-                        Cerrar sesión
-                    </Link>
-                </div>
             </div>
 
             <div>
