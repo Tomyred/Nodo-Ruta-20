@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import React from "react";
+import { Link } from "react-router-dom";
 import Navigation from "./navigation";
 
 const Sidebar = () => {
@@ -23,6 +24,14 @@ const Sidebar = () => {
                     alt="profile_pic"
                 />
                 <h3>John Doe</h3>
+                <div className="session_options">
+                    <Link className="session_option" to="/settings">
+                        Configuración
+                    </Link>
+                    <Link className="session_option" to="/">
+                        Cerrar sesión
+                    </Link>
+                </div>
             </div>
 
             <div>

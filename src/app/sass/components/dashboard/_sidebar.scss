@@ -3,21 +3,22 @@
 
 .sidebar {
     width: 20%;
-    @include sidebar();
-}
-.sidebar {
+    color: #ffff;
+    height: 100vh;
+    overflow-y: auto;
     display: none;
     @media screen and (min-width: 800px) {
         display: block;
     }
 }
 
-.sidebar h2 {
-    margin-left: 15px;
+.sidebar h1 {
+    margin: 20px;
 }
 
 .user__info {
     text-align: center;
+    margin: 30px;
 }
 
 .profile__image {
@@ -25,4 +26,17 @@
     border-radius: 50%;
     height: 150px;
     object-fit: cover;
+}
+
+.session_options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.session_option {
+    color: #fff;
+    font-size: 12px;
 }

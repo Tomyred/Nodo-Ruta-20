@@ -1,0 +1,32 @@
+@import "../../absctracts/mixins";
+
+.config__navigation {
+    @include flexCenter();
+    background-color: #2e2d2d;
+    color: #fff;
+    @media screen and (min-width: 800px) {
+        display: block;
+        width: 20%;
+        background-color: #2e2d2d;
+        height: 100%;
+
+        min-width: 200px;
+    }
+}
+
+.config__navigation > h3 {
+    display: none;
+    @media screen and (min-width: 800px) {
+        display: block;
+        padding: 20px;
+    }
+}
+
+.config__element {
+    @include navigationElement();
+    margin-top: 5px;
+}
+
+.config__element:hover {
+    background-color: #212020;
+}

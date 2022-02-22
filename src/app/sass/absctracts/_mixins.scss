@@ -18,32 +18,13 @@
     font-size: 15px;
     padding: 10px;
     text-decoration: none;
-    color: #ffff;
     cursor: pointer;
 }
 
-@mixin sidebar {
-    color: #ffff;
-    height: 100vh;
-    overflow-y: auto;
-}
-
 @mixin componentHeader() {
-    // background: #000000; /* fallback for old browsers */
-    // background: -webkit-linear-gradient(
-    //     to top,
-    //     #434343,
-    //     #000000
-    // ); /* Chrome 10-25, Safari 5.1-6 */
-    // background: linear-gradient(
-    //     to top,
-    //     #434343,
-    //     #000000
-    // ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
     color: #000;
     border-radius: 5px 5px 0 0;
-    padding: 1px;
+    padding: 20px;
     text-align: center;
 }
 

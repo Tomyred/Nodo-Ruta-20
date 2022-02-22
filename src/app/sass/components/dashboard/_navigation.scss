@@ -1,5 +1,6 @@
 .navigation__title {
     @include navigationElement();
+    color: #fff;
 }
 
 .navigation__title:hover {

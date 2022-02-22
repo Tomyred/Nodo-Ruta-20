@@ -1,0 +1,10 @@
+@import "./sidebar";
+@import "./settingComponent";
+@import "../../absctracts/mixins";
+
+.settings_component {
+    height: 100%;
+    @media screen and (min-width: 800px) {
+        @include flexCenter();
+    }
+}

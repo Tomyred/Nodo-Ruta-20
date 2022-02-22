@@ -31,7 +31,7 @@ const Card = ({ index, link, deleteCard }) => {
                 </div>
 
                 <div className="card__actions">
-                    <a href={link.url}>
+                    <a href={link.url} target="_blank" rel="noreferrer">
                         <button className="card__button">Ir</button>
                     </a>
                 </div>
