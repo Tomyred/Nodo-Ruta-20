@@ -1,9 +1,24 @@
 import React from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import Modal from "react-modal/lib/components/Modal";
 import { useDispatch } from "react-redux";
 import form_colors from "../../formColors";
 import { saveLink } from "../store/actions";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+
+const schema = yup.object().shape({
+    title: yup
+        .string()
+        .required("Este campo es requerido")
+        .max(25, "Límite de caracteres superado"),
+    description: yup
+        .string()
+        .required("Este campo es requerido")
+        .max(30, "Límite de caracteres superado"),
+    url: yup.string().required("Este campo es requerido"),
+    color: yup.string(),
+});
 
 const DialogForm = ({ open, setOpen }) => {
     const dispatch = useDispatch();
@@ -12,16 +27,18 @@ const DialogForm = ({ open, setOpen }) => {
         setOpen(false);
     }
 
-    const {
-        register,
-        handleSubmit,
-        reset,
-        // watch,
-        // formState: { errors },
-    } = useForm();
+    const defaultValues = null;
 
-    const onSubmit = data => {
-        dispatch(saveLink(data));
+    const { reset, formState, control, getValues } = useForm({
+        defaultValues,
+        mode: "onChange",
+        resolver: yupResolver(schema),
+    });
+
+    const { isValid, errors } = formState;
+
+    const handleClick = () => {
+        dispatch(saveLink(getValues()));
         closeModal();
     };
 
@@ -34,34 +51,82 @@ const DialogForm = ({ open, setOpen }) => {
                 contentLabel="Example Modal"
                 className="modal"
             >
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <input
-                        type="text"
-                        placeholder="Título"
-                        className="form__element"
-                        {...register("title")}
-                    />
-                    <input
-                        type="text"
-                        placeholder="Descripción"
-                        className="form__element"
-                        {...register("description")}
-                    />
-                    <input
-                        type="text"
-                        placeholder="Enlace"
-                        className="form__element"
-                        {...register("url")}
-                    />
-                    <select className="form__element" {...register("color")}>
-                        {form_colors.map((color, i) => (
-                            <option key={i} value={color.value}>
-                                {color.name}
-                            </option>
-                        ))}
-                    </select>
-                    <button type="submit">Enviar</button>
-                </form>
+                <Controller
+                    name="title"
+                    control={control}
+                    defaultValue=""
+                    render={({ field }) => (
+                        <input
+                            {...field}
+                            type="text"
+                            placeholder="Título"
+                            className="form__element"
+                        />
+                    )}
+                />
+                <span className="error_message">
+                    {errors.title ? errors.title.message : ""}
+                </span>
+
+                <Controller
+                    name="description"
+                    control={control}
+                    defaultValue=""
+                    render={({ field }) => (
+                        <input
+                            {...field}
+                            type="text"
+                            placeholder="Descripción"
+                            className="form__element"
+                        />
+                    )}
+                />
+
+                <span className="error_message">
+                    {errors.description ? errors.description.message : ""}
+                </span>
+
+                <Controller
+                    name="url"
+                    control={control}
+                    defaultValue=""
+                    render={({ field }) => (
+                        <input
+                            {...field}
+                            type="text"
+                            placeholder="Enlace"
+                            className="form__element"
+                        />
+                    )}
+                />
+
+                <span className="error_message">
+                    {errors.url ? errors.url.message : ""}
+                </span>
+
+                <Controller
+                    name="color"
+                    control={control}
+                    defaultValue="#2196f3"
+                    render={({ field }) => (
+                        <select {...field} className="form__element">
+                            {form_colors.map((color, i) => (
+                                <option {...field} key={i} value={color.value}>
+                                    {color.name}
+                                </option>
+                            ))}
+                        </select>
+                    )}
+                />
+
+                <button
+                    className="send__button"
+                    disabled={!isValid}
+                    type="submit"
+                    onClick={handleClick}
+                >
+                    Enviar
+                </button>
             </Modal>
         </div>
     );

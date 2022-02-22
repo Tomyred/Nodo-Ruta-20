@@ -1,44 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 
 const Account = () => {
+    const [image, setImage] = useState();
     return (
         <div className="setting__component">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sunt fugit
-            quia placeat quae in! Sit molestias minus eius quae saepe ut! Eaque
-            excepturi optio perspiciatis aspernatur sunt error labore ex.Lorem
-            ipsum, dolor sit amet consectetur adipisicing elit. Sunt fugit quia
-            placeat quae in! Sit molestias minus eius quae saepe ut! Eaque
-            excepturi optio perspiciatis aspernatur sunt error labore ex.Lorem
-            ipsum, dolor sit amet consectetur adipisicing elit. Sunt fugit quia
-            placeat quae in! Sit molestias minus eius quae saepe ut! Eaque
-            excepturi optio perspiciatis aspernatur sunt error labore ex.Lorem
-            ipsum, dolor sit amet consectetur adipisicing elit. Sunt fugit quia
-            placeat quae in! Sit molestias minus eius quae saepe ut! Eaque
-            excepturi optio perspiciatis aspernatur sunt error labore ex.Lorem
-            ipsum, dolor sit amet consectetur adipisicing elit. Sunt fugit quia
-            placeat quae in! Sit molestias minus eius quae saepe ut! Eaque
-            excepturi optio perspiciatis aspernatur sunt error labore ex.Lorem
-            ipsum, dolor sit amet consectetur adipisicing elit. Sunt fugit quia
-            placeat quae in! Sit molestias minus eius quae saepe ut! Eaque
-            excepturi optio perspiciatis aspernatur sunt error labore ex.Lorem
-            ipsum, dolor sit amet consectetur adipisicing elit. Sunt fugit quia
-            placeat quae in! Sit molestias minus eius quae saepe ut! Eaque
-            excepturi optio perspiciatis aspernatur sunt error labore ex.Lorem
-            ipsum, dolor sit amet consectetur adipisicing elit. Sunt fugit quia
-            placeat quae in! Sit molestias minus eius quae saepe ut! Eaque
-            excepturi optio perspiciatis aspernatur sunt error labore ex.Lorem
-            ipsum, dolor sit amet consectetur adipisicing elit. Sunt fugit quia
-            placeat quae in! Sit molestias minus eius quae saepe ut! Eaque
-            excepturi optio perspiciatis aspernatur sunt error labore ex.Lorem
-            ipsum, dolor sit amet consectetur adipisicing elit. Sunt fugit quia
-            placeat quae in! Sit molestias minus eius quae saepe ut! Eaque
-            excepturi optio perspiciatis aspernatur sunt error labore ex.Lorem
-            ipsum, dolor sit amet consectetur adipisicing elit. Sunt fugit quia
-            placeat quae in! Sit molestias minus eius quae saepe ut! Eaque
-            excepturi optio perspiciatis aspernatur sunt error labore ex.Lorem
-            ipsum, dolor sit amet consectetur adipisicing elit. Sunt fugit quia
-            placeat quae in! Sit molestias minus eius quae saepe ut! Eaque
-            excepturi optio perspiciatis aspernatur sunt error labore ex.
+            <input type="file" onChange={e => console.log(e.target.files)} />
+            <img src={image} alt="image" />
         </div>
     );
 };
