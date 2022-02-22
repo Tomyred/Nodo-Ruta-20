@@ -5,7 +5,7 @@ const Account = () => {
     return (
         <div className="setting__component">
             <input type="file" onChange={e => setImage(e.target.files)} />
-            <img src={image} alt="image" />
+            <img src={image} alt="profile-pic" />
         </div>
     );
 };
