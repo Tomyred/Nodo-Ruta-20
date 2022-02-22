@@ -11,7 +11,7 @@ const schema = yup.object().shape({
     title: yup
         .string()
         .required("Este campo es requerido")
-        .max(20, "Límite de caracteres superado"),
+        .max(25, "Límite de caracteres superado"),
     description: yup
         .string()
         .required("Este campo es requerido")
@@ -29,15 +29,15 @@ const DialogForm = ({ open, setOpen }) => {
 
     const defaultValues = null;
 
-    const { reset, formState, control, getValues, setValue } = useForm({
+    const { reset, formState, control, getValues } = useForm({
         defaultValues,
         mode: "onChange",
         resolver: yupResolver(schema),
     });
 
-    const { isValid, dirtyFields, errors } = formState;
+    const { isValid, errors } = formState;
 
-    const handleClick = data => {
+    const handleClick = () => {
         dispatch(saveLink(getValues()));
         closeModal();
     };
