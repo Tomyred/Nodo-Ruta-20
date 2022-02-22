@@ -4,7 +4,6 @@ import { setUser } from "../store/actions";
 
 const PersonalInformation = () => {
     const dispatch = useDispatch();
-    const reader = new FileReader();
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [selectedFile, setSelectedFile] = useState();
@@ -12,6 +11,7 @@ const PersonalInformation = () => {
 
     useEffect(() => {
         if (selectedFile) {
+            const reader = new FileReader();
             reader.onloadend = () => {
                 setProfilePic(reader.result);
             };
