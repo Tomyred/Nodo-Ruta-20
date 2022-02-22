@@ -1,11 +1,63 @@
-import React, { useState } from "react";
+import React from "react";
 
 const Account = () => {
-    const [image, setImage] = useState();
     return (
         <div className="setting__component">
-            <input type="file" onChange={e => setImage(e.target.files)} />
-            <img src={image} alt="profile-pic" />
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sunt fugit
+            quia placeat quae in! Sit molestias minus eius quae saepe ut! Eaque
+            excepturi optio perspiciatis aspernatur sunt error labore ex.Lorem
+            ipsum, dolor sit amet consectetur adipisicing elit. Sunt fugit quia
+            placeat quae in! Sit molestias minus eius quae saepe ut! Eaque
+            excepturi optio perspiciatis aspernatur sunt error labore ex.Lorem
+            ipsum, dolor sit amet consectetur adipisicing elit. Sunt fugit quia
+            placeat quae in! Sit molestias minus eius quae saepe ut! Eaque
+            excepturi optio perspiciatis aspernatur sunt error labore ex.Lorem
+            ipsum, dolor sit amet consectetur adipisicing elit. Sunt fugit quia
+            placeat quae in! Sit molestias minus eius quae saepe ut! Eaque
+            excepturi optio perspiciatis aspernatur sunt error labore ex.Lorem
+            ipsum, dolor sit amet consectetur adipisicing elit. Sunt fugit quia
+            placeat quae in! Sit molestias minus eius quae saepe ut! Eaque
+            excepturi optio perspiciatis aspernatur sunt error labore ex.Lorem
+            ipsum, dolor sit amet consectetur adipisicing elit. Sunt fugit quia
+            placeat quae in! Sit molestias minus eius quae saepe ut! Eaque
+            excepturi optio perspiciatis aspernatur sunt error labore ex.Lorem
+            ipsum, dolor sit amet consectetur adipisicing elit. Sunt fugit quia
+            placeat quae in! Sit molestias minus eius quae saepe ut! Eaque
+            excepturi optio perspiciatis aspernatur sunt error labore ex.Lorem
+            ipsum, dolor sit amet consectetur adipisicing elit. Sunt fugit quia
+            placeat quae in! Sit molestias minus eius quae saepe ut! Eaque
+            excepturi optio perspiciatis aspernatur sunt error labore ex.Lorem
+            ipsum, dolor sit amet consectetur adipisicing elit. Sunt fugit quia
+            placeat quae in! Sit molestias minus eius quae saepe ut! Eaque
+            excepturi optio perspiciatis aspernatur sunt error labore ex.Lorem
+            ipsum, dolor sit amet consectetur adipisicing elit. Sunt fugit quia
+            placeat quae in! Sit molestias minus eius quae saepe ut! Eaque
+            excepturi optio perspiciatis aspernatur sunt error labore ex.Lorem
+            ipsum, dolor sit amet consectetur adipisicing elit. Sunt fugit quia
+            placeat quae in! Sit molestias minus eius quae saepe ut! Eaque
+            excepturi optio perspiciatis aspernatur sunt error labore ex.Lorem
+            ipsum, dolor sit amet consectetur adipisicing elit. Sunt fugit quia
+            placeat quae in! Sit molestias minus eius quae saepe ut! Eaque
+            excepturi optio perspiciatis aspernatur sunt error labore ex. Lorem
+            ipsum, dolor sit amet consectetur adipisicing elit. Sunt fugit quia
+            placeat quae in! Sit molestias minus eius quae saepe ut! Eaque
+            excepturi optio perspiciatis aspernatur sunt error labore ex.Lorem
+            ipsum, dolor sit amet consectetur adipisicing elit. Sunt fugit quia
+            placeat quae in! Sit molestias minus eius quae saepe ut! Eaque
+            excepturi optio perspiciatis aspernatur sunt error labore ex.Lorem
+            ipsum, dolor sit amet consectetur adipisicing elit. Sunt fugit quia
+            placeat quae in! Sit molestias minus eius quae saepe ut! Eaque
+            excepturi optio perspiciatis aspernatur sunt error labore ex.Lorem
+            ipsum, dolor sit amet consectetur adipisicing elit. Sunt fugit quia
+            placeat quae in! Sit molestias minus eius quae saepe ut! Eaque
+            excepturi optio perspiciatis aspernatur sunt error labore ex.Lorem
+            ipsum, dolor sit amet consectetur adipisicing elit. Sunt fugit quia
+            placeat quae in! Sit molestias minus eius quae saepe ut! Eaque
+            excepturi optio perspiciatis aspernatur sunt error labore ex.Lorem
+            ipsum, dolor sit amet consectetur adipisicing elit. Sunt fugit quia
+            placeat quae in! Sit molestias minus eius quae saepe ut! Eaque
+            excepturi optio perspiciatis aspernatur sunt error labore ex.Lorem
+            ips
         </div>
     );
 };

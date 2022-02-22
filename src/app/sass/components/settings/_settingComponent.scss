@@ -1,4 +1,23 @@
+@import "../../absctracts/mixins";
+
 .setting__component {
     width: 100%;
     height: 100%;
+    background-color: #101010;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.profilePic__preview {
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+}
+
+.contrast__button {
+    margin: 30px;
+    @include button(#fff);
 }
