@@ -24,7 +24,7 @@ const Sidebar = () => {
                     src={
                         user.profilePic
                             ? user.profilePic
-                            : "https://www.pngfind.com/pngs/m/676-6764065_default-profile-picture-transparent-hd-png-download.png"
+                            : "https://i.pinimg.com/736x/65/25/a0/6525a08f1df98a2e3a545fe2ace4be47.jpg"
                     }
                     alt="profile_pic"
                 />
