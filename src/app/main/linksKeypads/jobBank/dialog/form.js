@@ -11,11 +11,11 @@ const schema = yup.object().shape({
     title: yup
         .string()
         .required("Este campo es requerido")
-        .max(25, "Límite de caracteres superado"),
+        .max(30, "Límite de caracteres superado"),
     description: yup
         .string()
         .required("Este campo es requerido")
-        .max(30, "Límite de caracteres superado"),
+        .max(120, "Límite de caracteres superado"),
     url: yup.string().required("Este campo es requerido"),
     color: yup.string(),
 });
