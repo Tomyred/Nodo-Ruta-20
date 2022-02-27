@@ -49,7 +49,7 @@ const LinkConsole = ({ group, title }) => {
 
         typingTimer = setTimeout(() => {
             dispatch(loadLinks(group, searchText));
-        }, 2000);
+        }, 1000);
     };
 
     const cards =
