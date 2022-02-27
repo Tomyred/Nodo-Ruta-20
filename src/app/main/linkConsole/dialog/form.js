@@ -1,8 +1,8 @@
 import React from "react";
 import { Controller, useForm } from "react-hook-form";
 import Modal from "react-modal/lib/components/Modal";
-import { useDispatch } from "react-redux";
-import FORM_COLORS from "../formColors";
+import { useDispatch, useSelector } from "react-redux";
+import FORM_COLORS from "./formColors";
 import { saveLink } from "../store/actions";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -22,14 +22,22 @@ const schema = yup.object().shape({
 
 const DialogForm = ({ setOpen, group }) => {
     const dispatch = useDispatch();
+
+    const entity = useSelector(store => store.linkConsole.entity);
+
     function closeModal() {
-        reset();
+        if (entity) {
+            setValue("title", { title: "putita" });
+        } else {
+            reset();
+        }
+
         setOpen(false);
     }
 
-    const defaultValues = { group };
+    const defaultValues = entity ? entity : { group };
 
-    const { reset, formState, control, getValues } = useForm({
+    const { reset, formState, control, getValues, setValue } = useForm({
         defaultValues,
         mode: "onChange",
         resolver: yupResolver(schema),

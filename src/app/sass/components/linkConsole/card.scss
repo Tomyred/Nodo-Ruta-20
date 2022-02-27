@@ -1,6 +1,7 @@
 .card {
     width: 30%;
     min-width: 250px;
+    max-width: 400px;
     height: 250px;
     border-radius: 10px;
     text-align: center;
@@ -32,6 +33,10 @@
     align-content: space-between;
     height: 80%;
     overflow-wrap: break-word;
+}
+
+.action__button {
+    margin-left: 5px;
 }
 
 .card__info {

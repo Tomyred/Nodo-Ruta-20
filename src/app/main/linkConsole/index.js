@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import LoadingScreen from "../../pages/loadingScreen";
 import Card from "./card";
 import DialogForm from "./dialog/form";
-import { loadLinks, removeLink } from "./store/actions";
+import { loadLinks, removeLink, setEntityToEdit } from "./store/actions";
 
 const LinkConsole = ({ group, title }) => {
     const dispatch = useDispatch();
@@ -15,6 +15,8 @@ const LinkConsole = ({ group, title }) => {
     const loading = useSelector(store => store.linkConsole.loading);
     const saved = useSelector(store => store.linkConsole.saved);
     const deleted = useSelector(store => store.linkConsole.deleted);
+
+    let typingTimer;
 
     useEffect(() => {
         dispatch(loadLinks(group));
@@ -31,8 +33,23 @@ const LinkConsole = ({ group, title }) => {
         // eslint-disable-next-line
     }, [saved, deleted]);
 
+    const setEntity = entity => {
+        dispatch(setEntityToEdit(entity));
+        setOpen(true);
+    };
+
     const deleteCard = id => {
         dispatch(removeLink(id));
+    };
+
+    const handleKeyUp = e => {
+        const searchText = e.target.value;
+
+        clearTimeout(typingTimer);
+
+        typingTimer = setTimeout(() => {
+            dispatch(loadLinks(group, searchText));
+        }, 2000);
     };
 
     const cards =
@@ -49,6 +66,7 @@ const LinkConsole = ({ group, title }) => {
                         index={i}
                         link={link}
                         deleteCard={deleteCard}
+                        setEntity={setEntity}
                     />
                 );
             })
@@ -77,6 +95,7 @@ const LinkConsole = ({ group, title }) => {
                 </div>
                 <hr />
                 <div className="button__container">
+                    <input onKeyUp={e => handleKeyUp(e)} />
                     <button onClick={() => setOpen(true)}>Nuevo enlace</button>
                 </div>
                 <div className="card__container">

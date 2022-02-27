@@ -1,6 +1,6 @@
 const initState = {
     data: [],
-    link: null,
+    entity: null,
     mounted: false,
     loading: false,
     loaded: false,
@@ -26,11 +26,12 @@ const reducer = (state = initState, action) => {
         case "CONSOLE_LINKS_LOAD_INIT":
             return {
                 ...state,
+                data: [],
                 loading: true,
                 loaded: false,
                 loadingError: false,
                 mounted: true,
-                link: null,
+                entity: null,
             };
         case "CONSOLE_LINKS_LOAD_SUCCEED":
             return {
@@ -46,6 +47,7 @@ const reducer = (state = initState, action) => {
                 loading: false,
                 loaded: false,
                 loadingError: true,
+                data: [],
             };
         case "CONSOLE_LINK_SAVE_INIT":
             return {
@@ -88,6 +90,11 @@ const reducer = (state = initState, action) => {
                 deleted: false,
                 deleting: false,
                 deletingError: true,
+            };
+        case "CONSOLE_SET_ENTITY":
+            return {
+                ...state,
+                entity: action.payload,
             };
 
         default:

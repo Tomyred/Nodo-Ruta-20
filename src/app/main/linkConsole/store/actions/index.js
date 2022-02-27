@@ -7,14 +7,14 @@ export const componentMount = () => dispatch => {
     });
 };
 
-export const loadLinks = group => async dispatch => {
+export const loadLinks = (group, searchText) => async dispatch => {
     try {
         dispatch({
             type: types.CONSOLE_LINKS_LOAD_INIT,
         });
 
-        const res = await api.load(group);
-
+        const res = await api.load(group, searchText);
+        console.log(res);
         if (res.data.error === false) {
             dispatch({
                 type: types.CONSOLE_LINKS_LOAD_SUCCEED,
@@ -53,6 +53,13 @@ export const saveLink = link => async dispatch => {
             type: types.CONSOLE_LINK_SAVE_FAILED,
         });
     }
+};
+
+export const setEntityToEdit = entity => dispatch => {
+    dispatch({
+        type: types.CONSOLE_SET_ENTITY,
+        payload: entity,
+    });
 };
 
 export const removeLink = id => async dispatch => {

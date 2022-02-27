@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import React from "react";
 
-const Card = ({ index, link, deleteCard }) => {
+const Card = ({ index, link, deleteCard, setEntity }) => {
     return (
         <motion.div
             initial={{ opacity: 0, scale: 0.5 }}
@@ -19,10 +19,16 @@ const Card = ({ index, link, deleteCard }) => {
                 }}
             >
                 {link.title}
-                <i
-                    className="fa-solid fa-trash"
-                    onClick={() => deleteCard(link._id)}
-                ></i>
+                <div>
+                    <i
+                        className="fa-solid fa-pen action__button"
+                        onClick={() => setEntity(link)}
+                    ></i>
+                    <i
+                        className="fa-solid fa-trash action__button"
+                        onClick={() => deleteCard(link._id)}
+                    ></i>
+                </div>
             </div>
             <div className="card__body">
                 <div className="card__info">
