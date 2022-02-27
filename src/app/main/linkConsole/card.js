@@ -19,6 +19,7 @@ const Card = ({ index, link, deleteCard, setEntity }) => {
                 }}
             >
                 {link.title}
+
                 <div>
                     <i
                         className="fa-solid fa-pen action__button"

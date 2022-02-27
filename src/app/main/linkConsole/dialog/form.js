@@ -1,9 +1,9 @@
 import React from "react";
 import { Controller, useForm } from "react-hook-form";
 import Modal from "react-modal/lib/components/Modal";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import FORM_COLORS from "./formColors";
-import { saveLink } from "../store/actions";
+import { saveLink, setEntityToEdit, updateLink } from "../store/actions";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
@@ -20,14 +20,12 @@ const schema = yup.object().shape({
     color: yup.string(),
 });
 
-const DialogForm = ({ setOpen, group }) => {
-    const dispatch = useDispatch();
-
+const DialogForm = ({ setOpen, group, dispatch }) => {
     const entity = useSelector(store => store.linkConsole.entity);
 
     function closeModal() {
         if (entity) {
-            setValue("title", { title: "putita" });
+            dispatch(setEntityToEdit(null));
         } else {
             reset();
         }
@@ -37,7 +35,7 @@ const DialogForm = ({ setOpen, group }) => {
 
     const defaultValues = entity ? entity : { group };
 
-    const { reset, formState, control, getValues, setValue } = useForm({
+    const { reset, formState, control, getValues } = useForm({
         defaultValues,
         mode: "onChange",
         resolver: yupResolver(schema),
@@ -46,7 +44,12 @@ const DialogForm = ({ setOpen, group }) => {
     const { isValid, errors } = formState;
 
     const handleClick = () => {
-        dispatch(saveLink(getValues()));
+        if (entity) {
+            dispatch(updateLink(getValues(), entity._id));
+        } else {
+            dispatch(saveLink(getValues()));
+        }
+
         closeModal();
     };
 

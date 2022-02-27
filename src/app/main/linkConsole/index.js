@@ -11,12 +11,9 @@ const LinkConsole = ({ group, title }) => {
     const dispatch = useDispatch();
     const [open, setOpen] = useState(false);
     const links = useSelector(store => store.linkConsole.data);
-    // const loaded = useSelector(store => store.linkConsole.loaded);
     const loading = useSelector(store => store.linkConsole.loading);
     const saved = useSelector(store => store.linkConsole.saved);
     const deleted = useSelector(store => store.linkConsole.deleted);
-
-    let typingTimer;
 
     useEffect(() => {
         dispatch(loadLinks(group));
@@ -43,6 +40,7 @@ const LinkConsole = ({ group, title }) => {
     };
 
     const handleKeyUp = e => {
+        let typingTimer;
         const searchText = e.target.value;
 
         clearTimeout(typingTimer);
@@ -77,7 +75,11 @@ const LinkConsole = ({ group, title }) => {
             {open === false ? (
                 ""
             ) : (
-                <DialogForm group={group} setOpen={setOpen} />
+                <DialogForm
+                    group={group}
+                    setOpen={setOpen}
+                    dispatch={dispatch}
+                />
             )}
             <div>
                 <div className="header">

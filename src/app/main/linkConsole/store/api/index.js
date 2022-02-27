@@ -9,6 +9,7 @@ export const load = (group, searchText) => {
         return axios.get(`${endpoint}?group=${group}`);
     }
 };
-
+export const update = (updatedLink, id) =>
+    axios.put(`${endpoint}/${id}`, updatedLink);
 export const save = link => axios.post(endpoint, link);
 export const remove = id => axios.delete(`${endpoint}/${id}`);

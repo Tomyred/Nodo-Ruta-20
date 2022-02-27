@@ -14,7 +14,6 @@ export const loadLinks = (group, searchText) => async dispatch => {
         });
 
         const res = await api.load(group, searchText);
-        console.log(res);
         if (res.data.error === false) {
             dispatch({
                 type: types.CONSOLE_LINKS_LOAD_SUCCEED,
@@ -39,6 +38,29 @@ export const saveLink = link => async dispatch => {
         });
 
         const res = await api.save(link);
+        if (res.data.error === false) {
+            dispatch({
+                type: types.CONSOLE_LINK_SAVE_SUCCEED,
+            });
+        } else {
+            dispatch({
+                type: types.CONSOLE_LINK_SAVE_FAILED,
+            });
+        }
+    } catch (error) {
+        dispatch({
+            type: types.CONSOLE_LINK_SAVE_FAILED,
+        });
+    }
+};
+
+export const updateLink = (link, id) => async dispatch => {
+    try {
+        dispatch({
+            type: types.CONSOLE_LINK_SAVE_INIT,
+        });
+
+        const res = await api.update(link, id);
         if (res.data.error === false) {
             dispatch({
                 type: types.CONSOLE_LINK_SAVE_SUCCEED,
