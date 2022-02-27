@@ -1,7 +1,7 @@
 import settingsRoutes from "../main/settings/settingsRoutes";
 import homeRoutes from "../main/home/homeRoutes";
-import keypadRoutes from "../main/linksKeypads/linksKeypadsRoutes";
+import linkConsoleRoutes from "../main/linkConsole/linkConsoleRoutes";
 
-const routes = [keypadRoutes, homeRoutes, settingsRoutes];
+const routes = [homeRoutes, settingsRoutes, linkConsoleRoutes];
 
 export default routes;
