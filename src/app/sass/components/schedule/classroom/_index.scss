@@ -1,0 +1,7 @@
+.classroom__component {
+    height: 100%;
+}
+
+.classroom__header {
+    @include componentHeader();
+}

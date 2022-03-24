@@ -2,7 +2,7 @@ import React from "react";
 import { Controller, useForm } from "react-hook-form";
 import Modal from "react-modal/lib/components/Modal";
 import { useSelector } from "react-redux";
-import FORM_COLORS from "./formColors";
+import getRandomColor from "./formColors";
 import { saveLink, setEntityToEdit, updateLink } from "../store/actions";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -17,7 +17,6 @@ const schema = yup.object().shape({
         .required("Este campo es requerido")
         .max(120, "Límite de caracteres superado"),
     url: yup.string().required("Este campo es requerido"),
-    color: yup.string(),
 });
 
 const DialogForm = ({ setOpen, group, dispatch }) => {
@@ -44,10 +43,18 @@ const DialogForm = ({ setOpen, group, dispatch }) => {
     const { isValid, errors } = formState;
 
     const handleClick = () => {
+        const { title, description, url, group } = getValues();
+        const link = {
+            title,
+            description,
+            url,
+            group,
+            color: getRandomColor(),
+        };
         if (entity) {
-            dispatch(updateLink(getValues(), entity._id));
+            dispatch(updateLink(link, entity._id));
         } else {
-            dispatch(saveLink(getValues()));
+            dispatch(saveLink(link));
         }
 
         closeModal();
@@ -115,7 +122,7 @@ const DialogForm = ({ setOpen, group, dispatch }) => {
                     {errors.url ? errors.url.message : ""}
                 </span>
 
-                <Controller
+                {/* <Controller
                     name="color"
                     control={control}
                     defaultValue="#2196f3"
@@ -128,7 +135,7 @@ const DialogForm = ({ setOpen, group, dispatch }) => {
                             ))}
                         </select>
                     )}
-                />
+                /> */}
 
                 <button
                     className="send__button"

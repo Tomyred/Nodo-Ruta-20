@@ -1,17 +1,8 @@
 @import "../../absctracts/mixins";
 
 .modal {
-    background-color: #ffff;
-    border: 2px solid slategray;
-    border-radius: 30px;
-    width: 80%;
-    margin: auto;
-    margin-top: 10%;
+    @include modal();
     padding: 20px;
-    text-align: center;
-    @media screen and (min-width: 900px) {
-        width: 30%;
-    }
 }
 
 .form__element {
@@ -32,6 +23,8 @@
 .send__button {
     @include button(#28a745);
     margin-top: 20px;
+    width: 30%;
+    min-width: 150px;
 }
 
 .send__button:active {

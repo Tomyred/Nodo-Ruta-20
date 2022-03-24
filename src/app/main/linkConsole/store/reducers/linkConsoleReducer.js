@@ -1,7 +1,6 @@
 const initState = {
     data: [],
     entity: null,
-    mounted: false,
     loading: false,
     loaded: false,
     loadingError: false,
@@ -15,14 +14,6 @@ const initState = {
 
 const reducer = (state = initState, action) => {
     switch (action.type) {
-        case "CONSOLE_COMPONENT_MOUNT":
-            return {
-                ...state,
-                loading: false,
-                loaded: false,
-                loadingError: false,
-                mounted: true,
-            };
         case "CONSOLE_LINKS_LOAD_INIT":
             return {
                 ...state,
@@ -30,8 +21,8 @@ const reducer = (state = initState, action) => {
                 loading: true,
                 loaded: false,
                 loadingError: false,
-                mounted: true,
                 entity: null,
+                deleted: false,
             };
         case "CONSOLE_LINKS_LOAD_SUCCEED":
             return {

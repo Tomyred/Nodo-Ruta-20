@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
@@ -25,7 +24,7 @@ const LinkConsole = ({ group, title }) => {
             dispatch(loadLinks(group));
         }
         if (deleted) {
-            window.location.reload();
+            dispatch(loadLinks(group));
         }
         // eslint-disable-next-line
     }, [saved, deleted]);
@@ -83,7 +82,7 @@ const LinkConsole = ({ group, title }) => {
             )}
             <div>
                 <div className="header">
-                    <motion.div
+                    <div
                         initial={{ opacity: 0, scale: 0.2 }}
                         animate={{
                             opacity: 1,
@@ -93,9 +92,9 @@ const LinkConsole = ({ group, title }) => {
                     >
                         <h2>{title}</h2>
                         <p>Consola de enlaces</p>
-                    </motion.div>
+                    </div>
                 </div>
-                <hr />
+                {/* <hr /> */}
                 <div className="button__container">
                     <input onKeyUp={e => handleKeyUp(e)} />
                     <button onClick={() => setOpen(true)}>Nuevo enlace</button>

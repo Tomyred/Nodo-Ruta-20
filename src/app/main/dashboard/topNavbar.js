@@ -7,10 +7,12 @@ const SmallSidebar = () => {
     return (
         <div className="top__container">
             <div className="top__navbar">
-                <i
-                    className="fa-solid fa-bars menu__icon"
+                <span
+                    className="material-icons md-36 menu__icon"
                     onClick={() => setOpen(!open)}
-                ></i>
+                >
+                    menu
+                </span>
             </div>
             <Collapsible open={open}>
                 <div className="nav__page grid__center">

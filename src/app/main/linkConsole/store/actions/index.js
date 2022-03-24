@@ -1,12 +1,6 @@
 import * as types from "../types/index.js";
 import * as api from "../api";
 
-export const componentMount = () => dispatch => {
-    dispatch({
-        type: types.CONSOLE_COMPONENT_MOUNT,
-    });
-};
-
 export const loadLinks = (group, searchText) => async dispatch => {
     try {
         dispatch({

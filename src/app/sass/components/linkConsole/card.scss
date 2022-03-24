@@ -23,10 +23,6 @@
     overflow-wrap: break-word;
 }
 
-.fa-solid {
-    cursor: pointer;
-}
-
 .card__body {
     display: grid;
     grid-template-columns: 100%;
@@ -36,7 +32,7 @@
 }
 
 .action__button {
-    margin-left: 5px;
+    cursor: pointer;
 }
 
 .card__info {

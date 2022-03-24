@@ -21,14 +21,20 @@ const Card = ({ index, link, deleteCard, setEntity }) => {
                 {link.title}
 
                 <div>
-                    <i
-                        className="fa-solid fa-pen action__button"
+                    <span
+                        style={{ marginRight: "10px" }}
+                        className="material-icons md-36 action__button"
                         onClick={() => setEntity(link)}
-                    ></i>
-                    <i
-                        className="fa-solid fa-trash action__button"
+                    >
+                        edit
+                    </span>
+
+                    <span
+                        className="material-icons md-36 action__button"
                         onClick={() => deleteCard(link._id)}
-                    ></i>
+                    >
+                        delete
+                    </span>
                 </div>
             </div>
             <div className="card__body">

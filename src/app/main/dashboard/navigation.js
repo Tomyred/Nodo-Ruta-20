@@ -38,17 +38,23 @@ const Navigation = props => {
                                     onClick={() => handleClick(element.title)}
                                 >
                                     <div>
-                                        <i
+                                        <span
                                             style={{ marginRight: "10px" }}
-                                            className={element.icon}
-                                        ></i>
+                                            className="material-icons md-36"
+                                        >
+                                            {element.icon}
+                                        </span>
                                         {element.title}
                                     </div>
 
                                     {open[element.title] ? (
-                                        <i className="fa-solid fa-angle-up"></i>
+                                        <span className="material-icons md-36">
+                                            expand_less
+                                        </span>
                                     ) : (
-                                        <i className="fa-solid fa-angle-down"></i>
+                                        <span className="material-icons md-36">
+                                            expand_more
+                                        </span>
                                     )}
                                 </span>
                             }
@@ -60,10 +66,12 @@ const Navigation = props => {
                                     to={child.route}
                                     onClick={closeNav}
                                 >
-                                    <i
+                                    <span
                                         style={{ marginRight: "10px" }}
-                                        className={child.icon}
-                                    ></i>
+                                        className="material-icons md-36"
+                                    >
+                                        {child.icon}
+                                    </span>
                                     {child.title}
                                 </Link>
                             ))}
@@ -78,10 +86,12 @@ const Navigation = props => {
                                     to={element.route}
                                     onClick={closeNav}
                                 >
-                                    <i
+                                    <span
                                         style={{ marginRight: "10px" }}
-                                        className={element.icon}
-                                    ></i>
+                                        className="material-icons md-36"
+                                    >
+                                        {element.icon}
+                                    </span>
                                     {element.title}
                                 </Link>
                             </span>

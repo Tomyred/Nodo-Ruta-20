@@ -11,4 +11,12 @@ const FORM_COLORS = [
     { name: "Salmón", value: "#e9967a" },
 ];
 
-export default FORM_COLORS;
+export default function getRandomColor() {
+    const randomNumber = Math.random() * FORM_COLORS.length - 1;
+    var index = Math.floor(randomNumber);
+    if (index < 0) {
+        index++;
+    }
+    const color = FORM_COLORS[index].value;
+    return color;
+}
