@@ -18,6 +18,13 @@ const Table = ({ radioStationStore }) => {
         return sorted;
     };
 
+    const sortByTime = array => {
+        const sorted = array.sort((a, b) => {
+            return a.hour.slice(0, 2) - b.hour.slice(0, 2);
+        });
+        return sorted;
+    };
+
     const componentContent = () => {
         if (radioStationStore.loading) {
             return <LoadingScreen />;
@@ -39,29 +46,36 @@ const Table = ({ radioStationStore }) => {
                             </tr>
                         </thead>
                         <tbody>
-                            {element.broadcasts.map((broadcast, j) => {
-                                return (
-                                    <tr
-                                        key={j}
-                                        onClick={() => console.log(broadcast)}
-                                    >
-                                        <td> {broadcast.hour} </td>
-                                        <td> {broadcast.name} </td>
-                                        <td>
-                                            {broadcast.hosts.map((host, i) => {
-                                                if (
-                                                    i + 1 <
-                                                    broadcast.hosts.length
-                                                ) {
-                                                    return `${host}, `;
-                                                } else {
-                                                    return host;
-                                                }
-                                            })}
-                                        </td>
-                                    </tr>
-                                );
-                            })}
+                            {sortByTime(element.broadcasts).map(
+                                (broadcast, j) => {
+                                    return (
+                                        <tr
+                                            key={j}
+                                            onClick={() =>
+                                                console.log(broadcast)
+                                            }
+                                        >
+                                            <td> {broadcast.hour} </td>
+                                            <td> {broadcast.name} </td>
+                                            <td>
+                                                {broadcast.hosts.map(
+                                                    (host, i) => {
+                                                        if (
+                                                            i + 1 <
+                                                            broadcast.hosts
+                                                                .length
+                                                        ) {
+                                                            return `${host}, `;
+                                                        } else {
+                                                            return host;
+                                                        }
+                                                    }
+                                                )}
+                                            </td>
+                                        </tr>
+                                    );
+                                }
+                            )}
                         </tbody>
                     </table>
                 );
