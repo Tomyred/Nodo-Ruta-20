@@ -62,7 +62,11 @@ const RadioStation = () => {
             {open === false ? (
                 ""
             ) : (
-                <RadioDialog dispatch={dispatch} setOpen={setOpen} />
+                <RadioDialog
+                    radioStationStore={radioStationStore}
+                    dispatch={dispatch}
+                    setOpen={setOpen}
+                />
             )}
 
             <div

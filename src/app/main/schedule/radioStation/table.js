@@ -2,16 +2,31 @@ import React from "react";
 import LoadingScreen from "../../../pages/loadingScreen";
 
 const Table = ({ radioStationStore }) => {
+    const sortByWeekDays = () => {
+        const map = {
+            Lunes: 1,
+            Martes: 2,
+            Miercoles: 3,
+            Jueves: 4,
+            Viernes: 5,
+            Sabado: 6,
+            Domingo: 7,
+        };
+        const sorted = radioStationStore.entity.schedule.sort((a, b) => {
+            return map[a.day] - map[b.day];
+        });
+        return sorted;
+    };
+
     const componentContent = () => {
         if (radioStationStore.loading) {
             return <LoadingScreen />;
         } else if (radioStationStore.loadingError) {
-            alert("Ha ocurrido un error al cargar los datos");
             return <h3 style={{ marginTop: 20 }}>No hay datos</h3>;
         } else if (radioStationStore.entity === null) {
             return <h3 style={{ marginTop: 20 }}>No hay datos</h3>;
         } else {
-            return radioStationStore.entity.schedule.map((element, i) => {
+            return sortByWeekDays().map((element, i) => {
                 return (
                     <table key={i} className="schedule__table">
                         <thead>

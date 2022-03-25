@@ -54,6 +54,9 @@ const BroadcastForm = ({ dispatch, entity, closeModal }) => {
 
     return (
         <div className="form__container">
+            <span>
+                Agregar programa a: <strong>{entity.stationName}</strong>
+            </span>
             <label htmlFor="day"> Dia </label>
             <Controller
                 name="day"

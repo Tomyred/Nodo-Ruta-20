@@ -1,20 +1,18 @@
 import React, { useState } from "react";
-
 import Modal from "react-modal/lib/components/Modal";
-import { useSelector } from "react-redux";
 import BroadcastForm from "./broadcastForm";
 import StationForm from "./stationForm";
 
-const RadioDialog = ({ setOpen, dispatch }) => {
+const RadioDialog = ({ radioStationStore, setOpen, dispatch }) => {
     const [tabValue, setTabValue] = useState(0);
-    const entity = useSelector(store => store.schedule.radioStation.entity);
+    const entity = radioStationStore.entity;
 
     const closeModal = () => {
         setOpen(false);
     };
 
     const renderComponent = () => {
-        if (tabValue === 0) {
+        if (tabValue === 0 && entity) {
             return (
                 <BroadcastForm
                     dispatch={dispatch}
@@ -22,8 +20,7 @@ const RadioDialog = ({ setOpen, dispatch }) => {
                     closeModal={closeModal}
                 />
             );
-        }
-        if (tabValue === 1) {
+        } else {
             return <StationForm dispatch={dispatch} closeModal={closeModal} />;
         }
     };
