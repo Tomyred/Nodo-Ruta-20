@@ -18,8 +18,15 @@ const RadioStation = () => {
         if (radioStationStore.saved && radioStationId) {
             dispatch(loadRadioById(radioStationId));
         }
+        if (radioStationStore.deleted === true && radioStationId) {
+            dispatch(loadRadioById(radioStationId));
+        }
         // eslint-disable-next-line
-    }, [radioStationStore.namesLoaded, radioStationStore.saved]);
+    }, [
+        radioStationStore.namesLoaded,
+        radioStationStore.saved,
+        radioStationStore.deleted,
+    ]);
 
     const getRadioStation = id => {
         setRadioStationId(id);
@@ -92,10 +99,13 @@ const RadioStation = () => {
                     <option value="">Elija una estación</option>
                     {selectContent}
                 </select>
-                <span className="schedule__title">
+                <span className="radio__title">
                     <strong>PROGRAMACIÓN</strong>
                 </span>
-                <Table radioStationStore={radioStationStore} />
+                <Table
+                    dispatch={dispatch}
+                    radioStationStore={radioStationStore}
+                />
             </div>
         </div>
     );

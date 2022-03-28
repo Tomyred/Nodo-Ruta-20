@@ -114,3 +114,23 @@ export const createRadioStation = radioStation => async dispatch => {
         });
     }
 };
+
+export const removeBroadcast = (broadcast, day, id) => async dispatch => {
+    try {
+        dispatch({
+            type: types.DELETE_INIT,
+        });
+
+        const res = await api.removeBroadcast(broadcast, day, id);
+        if (res.data.error === false) {
+            dispatch({
+                type: types.DELETE_SUCCEED,
+            });
+        }
+    } catch (error) {
+        console.log(error);
+        dispatch({
+            type: types.DELETE_FAILED,
+        });
+    }
+};

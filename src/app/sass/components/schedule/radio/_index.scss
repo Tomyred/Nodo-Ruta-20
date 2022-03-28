@@ -1,5 +1,6 @@
 @import "../../../absctracts/mixins";
 @import "./radioDialog";
+@import "./table.scss";
 
 .radio__component {
     height: 100%;
@@ -9,12 +10,14 @@
     @include componentHeader();
 }
 
-.schedule__title {
+.radio__title {
     display: block;
     width: 100%;
     background-color: #bf0122;
     padding: 15px;
     color: #fff;
+    max-width: 2100px;
+    margin-top: 15px;
 }
 
 .radio__body {
@@ -24,55 +27,19 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    select {
+        width: 30%;
+        padding: 10px;
+        margin-top: 10px;
+    }
+    button {
+        @include button(#00ffff);
+    }
+    button:active {
+        background-color: #06c5c5;
+    }
 }
 
 .modal__body {
     width: 100%;
-}
-
-.radio__body > button {
-    @include button(#00ffff);
-}
-
-.radio__body > button:active {
-    background-color: #06c5c5;
-}
-
-.radio__body > select {
-    width: 30%;
-    padding: 10px;
-    margin-top: 10px;
-}
-
-.schedule__title {
-    margin-top: 15px;
-}
-
-.schedule__table {
-    width: 100%;
-    margin-top: 20px;
-    thead {
-        background-color: rgb(206, 204, 204);
-        tr {
-            th {
-                padding: 6px 7px;
-                width: 30%;
-            }
-        }
-    }
-    tbody {
-        td {
-            padding: 6px 7px;
-        }
-        tr {
-            padding: 12px 15px;
-        }
-        tr:hover {
-            background-color: #f3f3f3;
-        }
-    }
-}
-
-#day {
-    width: 10%;
 }

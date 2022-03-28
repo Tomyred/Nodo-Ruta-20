@@ -1,7 +1,8 @@
 import React from "react";
 import LoadingScreen from "../../../pages/loadingScreen";
+import { removeBroadcast } from "./store/actions";
 
-const Table = ({ radioStationStore }) => {
+const Table = ({ radioStationStore, dispatch }) => {
     const sortByWeekDays = () => {
         const map = {
             Lunes: 1,
@@ -25,6 +26,10 @@ const Table = ({ radioStationStore }) => {
         return sorted;
     };
 
+    const deleteBroadcast = (broadcast, day) => {
+        dispatch(removeBroadcast(broadcast, day, radioStationStore.entity._id));
+    };
+
     const componentContent = () => {
         if (radioStationStore.loading) {
             return <LoadingScreen />;
@@ -43,18 +48,14 @@ const Table = ({ radioStationStore }) => {
                                 </th>
                                 <th> PROGRAMAS </th>
                                 <th> CONDUCTORES/AS </th>
+                                <th id="actions">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
                             {sortByTime(element.broadcasts).map(
                                 (broadcast, j) => {
                                     return (
-                                        <tr
-                                            key={j}
-                                            onClick={() =>
-                                                console.log(broadcast)
-                                            }
-                                        >
+                                        <tr key={j}>
                                             <td> {broadcast.hour} </td>
                                             <td> {broadcast.name} </td>
                                             <td>
@@ -71,6 +72,30 @@ const Table = ({ radioStationStore }) => {
                                                         }
                                                     }
                                                 )}
+                                            </td>
+                                            <td>
+                                                <span
+                                                    style={{
+                                                        marginRight: "10px",
+                                                    }}
+                                                    className="material-icons md-36 action__button"
+                                                    onClick={() =>
+                                                        deleteBroadcast(
+                                                            broadcast,
+                                                            element.day
+                                                        )
+                                                    }
+                                                >
+                                                    delete
+                                                </span>
+                                                <span
+                                                    style={{
+                                                        marginRight: "10px",
+                                                    }}
+                                                    className="material-icons md-36 action__button"
+                                                >
+                                                    edit
+                                                </span>
                                             </td>
                                         </tr>
                                     );

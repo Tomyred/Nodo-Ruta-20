@@ -11,6 +11,8 @@ const initState = {
     saving: false,
     saved: false,
     savingError: false,
+    deleted: false,
+    deletingError: false,
 };
 
 export default function radioReducer(state = initState, action) {
@@ -106,6 +108,23 @@ export default function radioReducer(state = initState, action) {
                 saving: false,
                 saved: false,
                 savingError: true,
+            };
+        case "DELETE_INIT":
+            return {
+                ...state,
+                deleted: false,
+                deletingError: false,
+            };
+        case "DELETE_SUCCEED":
+            return {
+                ...state,
+                deleted: true,
+                deletingError: false,
+            };
+        case "DELETE_FAILED":
+            return {
+                ...state,
+                deletingError: true,
             };
         default:
             return state;
