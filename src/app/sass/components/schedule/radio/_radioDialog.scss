@@ -27,13 +27,33 @@
     }
 }
 
-.active {
-    background-color: rgb(240, 236, 236);
+.modal__body {
+    width: 100%;
 }
 
 .form__container {
     padding: 20px;
     width: 100%;
+}
+
+.short__elements {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    div {
+        width: 48%;
+        margin select {
+            width: 100%;
+        }
+        input {
+            width: 100%;
+        }
+    }
+}
+
+.active {
+    background-color: rgb(240, 236, 236);
 }
 
 .host__field {

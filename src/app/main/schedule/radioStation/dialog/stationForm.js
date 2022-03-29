@@ -85,57 +85,67 @@ const StationForm = ({ closeModal, dispatch }) => {
                 Crear con al menos un programa{" "}
             </span>
             <hr style={{ marginBottom: 10 }} />
-            <label htmlFor="day"> Dia </label>
-            <Controller
-                name="day"
-                control={control}
-                defaultValue="Lunes"
-                render={({ field }) => {
-                    return (
-                        <select {...field} name="" className="form__element">
-                            <option {...field} value="Lunes">
-                                Lunes
-                            </option>
-                            <option {...field} value="Martes">
-                                Martes
-                            </option>
-                            <option {...field} value="Miercoles">
-                                Miercoles
-                            </option>
-                            <option {...field} value="Jueves">
-                                Jueves
-                            </option>
-                            <option {...field} value="Viernes">
-                                Viernes
-                            </option>
-                            <option {...field} value="Sabado">
-                                Sabado
-                            </option>
-                            <option {...field} value="Domingo">
-                                Domingo
-                            </option>
-                        </select>
-                    );
-                }}
-            />
-            <label>Horario</label>
-            <Controller
-                name="hour"
-                control={control}
-                defaultValue=""
-                render={({ field }) => {
-                    return (
-                        <input
-                            {...field}
-                            type="time"
-                            className="form__element"
-                        />
-                    );
-                }}
-            />
-            <span className="error_message">
-                {errors.hour ? errors.hour.message : ""}
-            </span>
+            <div className="short__elements">
+                <div>
+                    <label htmlFor="day"> Dia </label>
+                    <Controller
+                        name="day"
+                        control={control}
+                        defaultValue="Lunes"
+                        render={({ field }) => {
+                            return (
+                                <select
+                                    {...field}
+                                    name=""
+                                    className="form__element"
+                                >
+                                    <option {...field} value="Lunes">
+                                        Lunes
+                                    </option>
+                                    <option {...field} value="Martes">
+                                        Martes
+                                    </option>
+                                    <option {...field} value="Miercoles">
+                                        Miercoles
+                                    </option>
+                                    <option {...field} value="Jueves">
+                                        Jueves
+                                    </option>
+                                    <option {...field} value="Viernes">
+                                        Viernes
+                                    </option>
+                                    <option {...field} value="Sabado">
+                                        Sabado
+                                    </option>
+                                    <option {...field} value="Domingo">
+                                        Domingo
+                                    </option>
+                                </select>
+                            );
+                        }}
+                    />
+                </div>
+                <div>
+                    <label>Horario</label>
+                    <Controller
+                        name="hour"
+                        control={control}
+                        defaultValue=""
+                        render={({ field }) => {
+                            return (
+                                <input
+                                    {...field}
+                                    type="time"
+                                    className="form__element"
+                                />
+                            );
+                        }}
+                    />
+                    <span className="error_message">
+                        {errors.hour ? errors.hour.message : ""}
+                    </span>
+                </div>
+            </div>
             <label>Nombre del programa</label>
             <Controller
                 name="name"
