@@ -18,6 +18,7 @@ export const loadRadio = () => async dispatch => {
             });
         }
     } catch (error) {
+        console.log(error);
         dispatch({
             type: types.RADIO_LOAD_FAILED,
         });
@@ -41,6 +42,7 @@ export const loadRadioNames = () => async dispatch => {
             });
         }
     } catch (error) {
+        console.log(error);
         dispatch({
             type: types.RADIO_NAMES_LOAD_FAILED,
         });
@@ -64,6 +66,7 @@ export const loadRadioById = id => async dispatch => {
             });
         }
     } catch (error) {
+        console.log(error);
         dispatch({
             type: types.ENTITY_LOAD_FAILED,
         });
@@ -86,8 +89,33 @@ export const addBroadcastToRadio = (broadcast, id) => async dispatch => {
             });
         }
     } catch (error) {
+        console.log(error);
         dispatch({
             type: types.ADD_BROADCAST_FAILED,
+        });
+    }
+};
+
+export const removeBroadcast = (broadcast, day, id) => async dispatch => {
+    try {
+        dispatch({
+            type: types.DELETE_BROADCAST_INIT,
+        });
+
+        const res = await api.removeBroadcast(broadcast, day, id);
+        if (res.data.error === false) {
+            dispatch({
+                type: types.DELETE_BROADCAST_SUCCEED,
+            });
+        } else {
+            dispatch({
+                type: types.DELETE_BROADCAST_FAILED,
+            });
+        }
+    } catch (error) {
+        console.log(error);
+        dispatch({
+            type: types.DELETE_BROADCAST_FAILED,
         });
     }
 };
@@ -98,7 +126,6 @@ export const createRadioStation = radioStation => async dispatch => {
             type: types.ADD_RADIO_STATION_INIT,
         });
         const res = await api.save(radioStation);
-        console.log(res);
         if (res.data.error === false) {
             dispatch({
                 type: types.ADD_RADIO_STATION_SUCCEED,
@@ -109,28 +136,33 @@ export const createRadioStation = radioStation => async dispatch => {
             });
         }
     } catch (error) {
+        console.log(error);
         dispatch({
             type: types.ADD_RADIO_STATION_FAILED,
         });
     }
 };
 
-export const removeBroadcast = (broadcast, day, id) => async dispatch => {
+export const deleteRadioStation = id => async dispatch => {
     try {
         dispatch({
-            type: types.DELETE_INIT,
+            type: types.DELETE_RADIO_STATION_INIT,
         });
 
-        const res = await api.removeBroadcast(broadcast, day, id);
+        const res = await api.remove(id);
         if (res.data.error === false) {
             dispatch({
-                type: types.DELETE_SUCCEED,
+                type: types.DELETE_RADIO_STATION_SUCCEED,
+            });
+        } else {
+            dispatch({
+                type: types.DELETE_RADIO_STATION_FAILED,
             });
         }
     } catch (error) {
         console.log(error);
         dispatch({
-            type: types.DELETE_FAILED,
+            type: types.DELETE_RADIO_STATION_FAILED,
         });
     }
 };

@@ -51,7 +51,6 @@ const StationForm = ({ closeModal, dispatch }) => {
             schedule: [{ day, broadcasts: [{ hour, name, hosts }] }],
         };
         dispatch(createRadioStation(newRadioStation));
-        console.log(newRadioStation);
         closeModal();
     };
 

@@ -13,6 +13,9 @@ const initState = {
     savingError: false,
     deleted: false,
     deletingError: false,
+    deletingStation: false,
+    stationDeleted: false,
+    deletingStationError: false,
 };
 
 export default function radioReducer(state = initState, action) {
@@ -109,22 +112,64 @@ export default function radioReducer(state = initState, action) {
                 saved: false,
                 savingError: true,
             };
-        case "DELETE_INIT":
+        case "ADD_RADIO_STATION_INIT":
+            return {
+                ...state,
+                saving: true,
+            };
+        case "ADD_RADIO_STATION_SUCCEED":
+            return {
+                ...state,
+                loaded: false,
+                saving: false,
+                namesLoaded: false,
+            };
+        case "ADD_RADIO_STATION_FAILED":
+            return {
+                ...state,
+                loaded: false,
+                saving: false,
+                savingError: true,
+            };
+        case "DELETE_BROADCAST_INIT":
             return {
                 ...state,
                 deleted: false,
                 deletingError: false,
             };
-        case "DELETE_SUCCEED":
+        case "DELETE_BROADCAST_SUCCEED":
             return {
                 ...state,
                 deleted: true,
                 deletingError: false,
             };
-        case "DELETE_FAILED":
+        case "DELETE_BROADCAST_FAILED":
             return {
                 ...state,
                 deletingError: true,
+            };
+        case "DELETE_RADIO_STATION_INIT":
+            return {
+                ...state,
+                deletingStation: true,
+                stationDeleted: false,
+                deletingStationError: false,
+            };
+        case "DELETE_RADIO_STATION_SUCCEED":
+            return {
+                ...state,
+                deletingStation: false,
+                stationDeleted: true,
+                deletingStationError: false,
+                namesLoaded: false,
+                loaded: false,
+                entity: null,
+            };
+        case "DELETE_RADIO_STATION_FAILED":
+            return {
+                ...state,
+                deletingStation: false,
+                deletingStationError: true,
             };
         default:
             return state;
