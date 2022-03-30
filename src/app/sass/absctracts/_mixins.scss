@@ -25,15 +25,24 @@
     color: #000;
     width: 100%;
     padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
     border-bottom: 1px solid #000;
+    height: 15%;
 }
 
 @mixin button($bgcolor) {
-    padding: 15px;
-    border: none;
-    border-radius: 30px;
     background-color: $bgcolor;
+    border: 1px solid rgba(34, 34, 34, 0.501);
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
 }
 
 @mixin modal() {

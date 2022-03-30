@@ -73,6 +73,7 @@ export default function radioReducer(state = initState, action) {
                 loading: true,
                 loaded: false,
                 loadingError: false,
+                saved: false,
             };
         case "ENTITY_LOAD_SUCCEED":
             return {
@@ -122,6 +123,7 @@ export default function radioReducer(state = initState, action) {
                 ...state,
                 loaded: false,
                 saving: false,
+                saved: true,
                 namesLoaded: false,
             };
         case "ADD_RADIO_STATION_FAILED":

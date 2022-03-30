@@ -1,5 +1,5 @@
 @import "../../../absctracts/mixins";
-@import "./radioDialog";
+@import "./form";
 @import "./table.scss";
 
 .radio__component {
@@ -8,10 +8,14 @@
 
 .radio__header {
     @include componentHeader();
+    // background-color: rgb(39, 58, 99);
+    // color: #fff;
 }
 
 .radio__title {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     width: 100%;
     background-color: #bf0122;
     padding: 15px;
@@ -52,6 +56,14 @@
     }
     button:active {
         background-color: #06c5c5;
+    }
+    .new__broadcast_button {
+        @include button(#28a745);
+        color: #fff;
+    }
+
+    .new__broadcast_button:active {
+        background-color: #0f7c29;
     }
 }
 

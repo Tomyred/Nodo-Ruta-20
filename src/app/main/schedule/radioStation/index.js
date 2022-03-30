@@ -9,34 +9,48 @@ import {
 import Table from "./table";
 import Modal from "react-modal/lib/components/Modal";
 import LoadingScreen from "../../../pages/loadingScreen";
+import { Link } from "react-router-dom";
 
 const RadioStation = () => {
     const dispatch = useDispatch();
     const radioStationStore = useSelector(store => store.schedule.radioStation);
+    const {
+        namesLoaded,
+        saved,
+        deleted,
+        radioNames,
+        namesLoading,
+        namesLoadingError,
+        entity,
+        deletingStation,
+        loading,
+        stationDeleted,
+    } = radioStationStore;
 
-    const [radioStationId, setRadioStationId] = useState("");
+    const [radioStationId, setRadioStationId] = useState(
+        entity ? entity._id : ""
+    );
     const [open, setOpen] = useState(false);
     const [deleteModal, setDeleteModal] = useState(false);
 
     useEffect(() => {
-        if (radioStationStore.namesLoaded === false) {
+        if (namesLoaded === false) {
             dispatch(loadRadioNames());
         }
-        if (radioStationStore.namesLoaded === false) {
+        if (namesLoaded === false) {
             dispatch(loadRadioNames());
         }
-        if (radioStationStore.saved && radioStationId) {
+        if (saved && radioStationId) {
+            console.log("dasdasd");
             dispatch(loadRadioById(radioStationId));
         }
-        if (radioStationStore.deleted === true && radioStationId) {
+        if (deleted === true && radioStationId) {
             dispatch(loadRadioById(radioStationId));
         }
-        // eslint-disable-next-line
-    }, [
-        radioStationStore.namesLoaded,
-        radioStationStore.saved,
-        radioStationStore.deleted,
-    ]);
+        if (stationDeleted) {
+            setDeleteModal(false);
+        }
+    }, [namesLoaded, saved, deleted, dispatch, radioStationId, stationDeleted]);
 
     const getRadioStation = id => {
         setRadioStationId(id);
@@ -47,14 +61,11 @@ const RadioStation = () => {
         dispatch(loadRadioById(id));
     };
     const setSelectContent = () => {
-        if (
-            radioStationStore.namesLoaded &&
-            radioStationStore.radioNames.length === 0
-        ) {
+        if (namesLoaded && radioNames.length === 0) {
             return <option value="">No hay datos</option>;
         }
-        if (radioStationStore.radioNames.length > 0) {
-            return radioStationStore.radioNames.map((station, i) => {
+        if (radioNames.length > 0) {
+            return radioNames.map((station, i) => {
                 return (
                     <option key={i} value={station._id}>
                         {station.stationName}
@@ -63,18 +74,22 @@ const RadioStation = () => {
             });
         }
 
-        if (radioStationStore.namesLoading) {
+        if (namesLoading) {
             return <option value=""> Cargando... </option>;
         }
 
-        if (radioStationStore.namesLoadingError) {
+        if (namesLoadingError) {
             return <option value=""> Error cargando las estaciones </option>;
         }
     };
 
+    const handleDeleteConfirm = () => {
+        dispatch(deleteRadioStation(entity._id));
+    };
+
     const selectContent = setSelectContent();
     const deleteConfirmationModal =
-        radioStationStore.entity === null ? (
+        entity === null ? (
             ""
         ) : (
             <Modal
@@ -86,15 +101,11 @@ const RadioStation = () => {
             >
                 <p>
                     ¿Seguro que quieres eliminar la emisora{" "}
-                    <strong> {radioStationStore.entity.stationName}</strong>?
+                    <strong> {entity.stationName}</strong>?
                 </p>
                 <div>
                     <button
-                        onClick={() =>
-                            dispatch(
-                                deleteRadioStation(radioStationStore.entity._id)
-                            )
-                        }
+                        onClick={handleDeleteConfirm}
                         className="delete__button"
                     >
                         Eliminar
@@ -109,10 +120,7 @@ const RadioStation = () => {
             </Modal>
         );
 
-    if (
-        radioStationStore.deletingStation === true ||
-        radioStationStore.loading
-    ) {
+    if (deletingStation === true || loading) {
         <LoadingScreen />;
     }
     return (
@@ -141,7 +149,9 @@ const RadioStation = () => {
                 <p>Programación</p>
             </div>
             <div className="radio__body">
-                <button onClick={() => setOpen(true)}>Nuevo</button>
+                <Link to="/schedule/radio/new-station">
+                    <button>Nueva emisora</button>
+                </Link>
 
                 <div className="select__container">
                     <select
@@ -156,7 +166,7 @@ const RadioStation = () => {
 
                     <button
                         onClick={() => {
-                            if (!radioStationStore.entity) {
+                            if (!entity) {
                                 alert("No hay una emisora seleccionada");
                             } else {
                                 setDeleteModal(true);
@@ -167,9 +177,21 @@ const RadioStation = () => {
                     </button>
                 </div>
 
-                <span className="radio__title">
-                    <strong>PROGRAMACIÓN</strong>
-                </span>
+                {!entity ? (
+                    ""
+                ) : (
+                    <span className="radio__title">
+                        <strong>
+                            PROGRAMACIÓN DE {entity.stationName.toUpperCase()}
+                        </strong>
+                        <Link to="/schedule/radio/add-broadcast">
+                            <button className="new__broadcast_button">
+                                Nuevo programa
+                            </button>
+                        </Link>
+                    </span>
+                )}
+
                 <Table
                     dispatch={dispatch}
                     radioStationStore={radioStationStore}

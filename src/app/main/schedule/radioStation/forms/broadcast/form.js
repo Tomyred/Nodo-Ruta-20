@@ -1,0 +1,181 @@
+import React, { useEffect, useState } from "react";
+import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { Controller, useForm } from "react-hook-form";
+import { addBroadcastToRadio } from "../../store/actions";
+import { useDispatch, useSelector } from "react-redux";
+
+const schema = yup.object().shape({
+    day: yup.string().required("Este campo es requerido"),
+    hour: yup.string().required("Este campo es requerido"),
+    name: yup.string().required("Este campo es requerido"),
+});
+
+const Form = ({ submit, setSubmit, setDisable }) => {
+    const dispatch = useDispatch();
+    const [host, setHost] = useState("");
+    const [hosts, setHosts] = useState([]);
+
+    const defaultValues = "";
+    const entity = useSelector(store => store.schedule.radioStation.entity);
+
+    const { formState, control, getValues } = useForm({
+        defaultValues,
+        mode: "onChange",
+        resolver: yupResolver(schema),
+    });
+
+    const { isValid, errors } = formState;
+
+    useEffect(() => {
+        if (isValid && hosts.length > 0) {
+            setDisable(true);
+        } else {
+            setDisable(false);
+        }
+        if (submit === true) {
+            handleSubmit();
+            console.log("submit");
+            setSubmit(false);
+        }
+        //eslint-disable-next-line
+    }, [isValid, hosts.length, submit]);
+
+    const addToHostList = () => {
+        setHosts([...hosts, host]);
+        setHost("");
+    };
+
+    const removeHost = i => {
+        hosts.splice(i, 1);
+        setHosts([...hosts]);
+    };
+
+    const handleSubmit = () => {
+        const { day, hour, name } = getValues();
+        const newBroadcast = { day, broadcasts: [{ hour, name, hosts }] };
+
+        dispatch(addBroadcastToRadio(newBroadcast, entity._id));
+    };
+
+    return (
+        <div className="form__container">
+            <span>
+                Agregar programa a: <strong>{entity.stationName}</strong>
+            </span>
+            <div className="short__elements">
+                <div>
+                    <label htmlFor="day"> Dia </label>
+                    <Controller
+                        name="day"
+                        control={control}
+                        defaultValue="Lunes"
+                        render={({ field }) => {
+                            return (
+                                <select
+                                    {...field}
+                                    name=""
+                                    className="form__element"
+                                >
+                                    <option {...field} value="Lunes">
+                                        Lunes
+                                    </option>
+                                    <option {...field} value="Martes">
+                                        Martes
+                                    </option>
+                                    <option {...field} value="Miercoles">
+                                        Miercoles
+                                    </option>
+                                    <option {...field} value="Jueves">
+                                        Jueves
+                                    </option>
+                                    <option {...field} value="Viernes">
+                                        Viernes
+                                    </option>
+                                    <option {...field} value="Sabado">
+                                        Sabado
+                                    </option>
+                                    <option {...field} value="Domingo">
+                                        Domingo
+                                    </option>
+                                </select>
+                            );
+                        }}
+                    />
+                </div>
+                <div>
+                    <label>Horario</label>
+                    <Controller
+                        name="hour"
+                        control={control}
+                        defaultValue=""
+                        render={({ field }) => {
+                            return (
+                                <input
+                                    {...field}
+                                    type="time"
+                                    className="form__element"
+                                />
+                            );
+                        }}
+                    />
+                    <span className="error_message">
+                        {errors.hour ? errors.hour.message : ""}
+                    </span>
+                </div>
+            </div>
+
+            <label>Nombre del programa</label>
+            <Controller
+                name="name"
+                control={control}
+                defaultValue=""
+                render={({ field }) => {
+                    return (
+                        <input
+                            {...field}
+                            type="text"
+                            className="form__element"
+                        />
+                    );
+                }}
+            />
+            <span className="error_message">
+                {errors.name ? errors.name.message : ""}
+            </span>
+            <label htmlFor="hosts">Conductores</label>
+            <div className="host__field">
+                <input
+                    onChange={e => setHost(e.target.value)}
+                    type="text"
+                    value={host}
+                    className="form__element"
+                />
+                <span className="error_message">
+                    {hosts.length === 0
+                        ? "Debe contener al menos un conductor/a"
+                        : ""}
+                </span>
+                <button disabled={host.length === 0} onClick={addToHostList}>
+                    {" "}
+                    +{" "}
+                </button>
+                <div className="hosts__container">
+                    {hosts.map((host, i) => {
+                        return (
+                            <span
+                                onClick={() => removeHost(i)}
+                                key={i}
+                                className="hostslists__element"
+                            >
+                                {host}
+                            </span>
+                        );
+                    })}
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default Form;
