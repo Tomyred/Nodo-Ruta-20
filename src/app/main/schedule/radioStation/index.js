@@ -41,7 +41,6 @@ const RadioStation = () => {
             dispatch(loadRadioNames());
         }
         if (saved && radioStationId) {
-            console.log("dasdasd");
             dispatch(loadRadioById(radioStationId));
         }
         if (deleted === true && radioStationId) {

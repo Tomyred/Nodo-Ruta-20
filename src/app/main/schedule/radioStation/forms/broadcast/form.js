@@ -35,7 +35,6 @@ const Form = ({ submit, setSubmit, setDisable }) => {
         }
         if (submit === true) {
             handleSubmit();
-            console.log("submit");
             setSubmit(false);
         }
         //eslint-disable-next-line
@@ -163,13 +162,16 @@ const Form = ({ submit, setSubmit, setDisable }) => {
                 <div className="hosts__container">
                     {hosts.map((host, i) => {
                         return (
-                            <span
+                            <div
                                 onClick={() => removeHost(i)}
                                 key={i}
                                 className="hostslists__element"
                             >
-                                {host}
-                            </span>
+                                <span>{host}</span>
+                                <span className="material-icons md-36">
+                                    delete
+                                </span>
+                            </div>
                         );
                     })}
                 </div>
