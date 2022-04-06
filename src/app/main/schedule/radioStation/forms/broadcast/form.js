@@ -2,29 +2,33 @@ import React, { useEffect, useState } from "react";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, useForm } from "react-hook-form";
-import { addBroadcastToRadio } from "../../store/actions";
+import { addBroadcastToRadio, editBroadcast } from "../../store/actions";
 import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router";
 
 const schema = yup.object().shape({
     day: yup.string().required("Este campo es requerido"),
     hour: yup.string().required("Este campo es requerido"),
     name: yup.string().required("Este campo es requerido"),
+    description: yup.string(),
 });
 
 const Form = ({ submit, setSubmit, setDisable }) => {
     const dispatch = useDispatch();
+    const { id } = useParams();
+    const { entity, broadcast } = useSelector(
+        store => store.schedule.radioStation
+    );
     const [host, setHost] = useState("");
-    const [hosts, setHosts] = useState([]);
-
-    const defaultValues = "";
-    const entity = useSelector(store => store.schedule.radioStation.entity);
-
+    const [hosts, setHosts] = useState(
+        id && broadcast?.hosts ? broadcast.hosts : []
+    );
+    const defaultValues = id ? broadcast : "";
     const { formState, control, getValues } = useForm({
         defaultValues,
         mode: "onChange",
         resolver: yupResolver(schema),
     });
-
     const { isValid, errors } = formState;
 
     useEffect(() => {
@@ -51,11 +55,24 @@ const Form = ({ submit, setSubmit, setDisable }) => {
     };
 
     const handleSubmit = () => {
-        const { day, hour, name } = getValues();
-        const newBroadcast = { day, broadcasts: [{ hour, name, hosts }] };
+        if (id) {
+            const { day, hour, name, description, _id } = getValues();
+            const broadcasToUpdate = { hour, name, description, hosts, _id };
+            dispatch(editBroadcast(broadcasToUpdate, day, entity._id));
+        } else {
+            const { day, hour, name, description } = getValues();
+            const newBroadcast = {
+                day,
+                broadcasts: [{ hour, name, hosts, description }],
+            };
 
-        dispatch(addBroadcastToRadio(newBroadcast, entity._id));
+            dispatch(addBroadcastToRadio(newBroadcast, entity._id));
+        }
     };
+
+    if (!entity) {
+        return <p>No hay una emisora seleccionada</p>;
+    }
 
     return (
         <div className="form__container">
@@ -68,12 +85,11 @@ const Form = ({ submit, setSubmit, setDisable }) => {
                     <Controller
                         name="day"
                         control={control}
-                        defaultValue="Lunes"
                         render={({ field }) => {
                             return (
                                 <select
+                                    id="day"
                                     {...field}
-                                    name=""
                                     className="form__element"
                                 >
                                     <option {...field} value="Lunes">
@@ -103,7 +119,7 @@ const Form = ({ submit, setSubmit, setDisable }) => {
                     />
                 </div>
                 <div>
-                    <label>Horario</label>
+                    <label htmlFor="hour">Horario</label>
                     <Controller
                         name="hour"
                         control={control}
@@ -111,6 +127,7 @@ const Form = ({ submit, setSubmit, setDisable }) => {
                         render={({ field }) => {
                             return (
                                 <input
+                                    id="hour"
                                     {...field}
                                     type="time"
                                     className="form__element"
@@ -124,7 +141,7 @@ const Form = ({ submit, setSubmit, setDisable }) => {
                 </div>
             </div>
 
-            <label>Nombre del programa</label>
+            <label htmlFor="name">Nombre del programa</label>
             <Controller
                 name="name"
                 control={control}
@@ -133,6 +150,7 @@ const Form = ({ submit, setSubmit, setDisable }) => {
                     return (
                         <input
                             {...field}
+                            id="name"
                             type="text"
                             className="form__element"
                         />
@@ -142,12 +160,31 @@ const Form = ({ submit, setSubmit, setDisable }) => {
             <span className="error_message">
                 {errors.name ? errors.name.message : ""}
             </span>
+            <label htmlFor="description">Descripción</label>
+            <Controller
+                name="description"
+                control={control}
+                defaultValue=""
+                render={({ field }) => {
+                    return (
+                        <textarea
+                            {...field}
+                            className="form__element"
+                            cols="30"
+                            rows="10"
+                            id="description"
+                        ></textarea>
+                    );
+                }}
+            />
+
             <label htmlFor="hosts">Conductores</label>
             <div className="host__field">
                 <input
                     onChange={e => setHost(e.target.value)}
                     type="text"
                     value={host}
+                    id="hosts"
                     className="form__element"
                 />
                 <span className="error_message">
@@ -156,8 +193,7 @@ const Form = ({ submit, setSubmit, setDisable }) => {
                         : ""}
                 </span>
                 <button disabled={host.length === 0} onClick={addToHostList}>
-                    {" "}
-                    +{" "}
+                    +
                 </button>
                 <div className="hosts__container">
                     {hosts.map((host, i) => {

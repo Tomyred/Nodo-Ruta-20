@@ -87,6 +87,18 @@
     }
 }
 
+.reference {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000;
+    text-decoration: none;
+    span {
+        padding: 10px;
+        font-size: 40px;
+    }
+}
+
 .delete__button {
     @include button(#e8ecf1);
 }

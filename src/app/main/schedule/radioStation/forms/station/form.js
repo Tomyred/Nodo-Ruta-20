@@ -10,6 +10,8 @@ const schema = yup.object().shape({
     day: yup.string().required("Este campo es requerido"),
     hour: yup.string().required("Este campo es requerido"),
     name: yup.string().required("Este campo es requerido"),
+    description: yup.string(),
+    reference: yup.string(),
 });
 
 const Form = ({ submit, setSubmit, setDisable }) => {
@@ -50,17 +52,21 @@ const Form = ({ submit, setSubmit, setDisable }) => {
     };
 
     const handleSubmit = () => {
-        const { stationName, day, hour, name } = getValues();
+        const { stationName, day, hour, name, description, reference } =
+            getValues();
         const newRadioStation = {
             stationName,
-            schedule: [{ day, broadcasts: [{ hour, name, hosts }] }],
+            reference,
+            schedule: [
+                { day, broadcasts: [{ hour, name, hosts, description }] },
+            ],
         };
         dispatch(createRadioStation(newRadioStation));
     };
 
     return (
         <div className="form__container">
-            <label htmlFor="day"> Nombre de la emisora </label>
+            <label htmlFor="stationName"> Nombre de la emisora </label>
             <Controller
                 name="stationName"
                 control={control}
@@ -69,6 +75,7 @@ const Form = ({ submit, setSubmit, setDisable }) => {
                     return (
                         <input
                             {...field}
+                            id="stationName"
                             type="text"
                             className="form__element"
                         />
@@ -78,6 +85,22 @@ const Form = ({ submit, setSubmit, setDisable }) => {
             <span className="error_message">
                 {errors.stationName ? errors.stationName.message : ""}
             </span>
+            <label htmlFor="reference"> Dirección (URL o fisica) </label>
+            <Controller
+                name="reference"
+                control={control}
+                defaultValue=""
+                render={({ field }) => {
+                    return (
+                        <input
+                            id="reference"
+                            {...field}
+                            type="text"
+                            className="form__element"
+                        />
+                    );
+                }}
+            />
             <span
                 style={{
                     marginTop: 10,
@@ -168,6 +191,23 @@ const Form = ({ submit, setSubmit, setDisable }) => {
             <span className="error_message">
                 {errors.name ? errors.name.message : ""}
             </span>
+            <label htmlFor="description">Descripción</label>
+            <Controller
+                name="description"
+                control={control}
+                defaultValue=""
+                render={({ field }) => {
+                    return (
+                        <textarea
+                            {...field}
+                            className="form__element"
+                            cols="30"
+                            rows="10"
+                            id="description"
+                        ></textarea>
+                    );
+                }}
+            />
             <label htmlFor="hosts">Conductores</label>
             <div className="host__field">
                 <input

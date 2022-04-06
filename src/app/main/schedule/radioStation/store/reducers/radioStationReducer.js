@@ -1,10 +1,11 @@
 const initState = {
     data: [],
     radioNames: [],
+    entity: null,
+    broadcast: null,
     loading: false,
     loaded: false,
     loadingError: false,
-    entity: null,
     namesloading: false,
     namesLoaded: false,
     namesLoadingError: false,
@@ -91,6 +92,28 @@ export default function radioReducer(state = initState, action) {
                 loaded: false,
                 loadingError: true,
             };
+        case "SAVE_INIT":
+            return {
+                ...state,
+                saving: true,
+                saved: false,
+                savingError: false,
+            };
+        case "SAVE_SUCCEED":
+            return {
+                ...state,
+                loaded: false,
+                saving: false,
+                saved: true,
+                savingError: false,
+            };
+        case "SAVE_FAILED":
+            return {
+                ...state,
+                saving: false,
+                saved: false,
+                savingError: true,
+            };
         case "ADD_BROADCAST_INIT":
             return {
                 ...state,
@@ -172,6 +195,12 @@ export default function radioReducer(state = initState, action) {
                 ...state,
                 deletingStation: false,
                 deletingStationError: true,
+            };
+
+        case "SET_BROADCAST_DETAIL":
+            return {
+                ...state,
+                broadcast: action.payload,
             };
         default:
             return state;

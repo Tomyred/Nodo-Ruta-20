@@ -18,6 +18,21 @@ const radioRoutes = [
         exact: true,
         component: <Broadcast />,
     },
+    {
+        path: "/schedule/radio/add-broadcast/:id",
+        exact: true,
+        component: <Broadcast />,
+    },
+    {
+        path: "/schedule/radio/new-station",
+        exact: true,
+        component: <Station />,
+    },
+    {
+        path: "/schedule/radio/new-station/:id",
+        exact: true,
+        component: <Station />,
+    },
 ];
 
 export default radioRoutes;

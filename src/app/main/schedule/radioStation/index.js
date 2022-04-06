@@ -164,18 +164,27 @@ const RadioStation = () => {
                     </select>
 
                     <button
-                        onClick={() => {
-                            if (!entity) {
-                                alert("No hay una emisora seleccionada");
-                            } else {
-                                setDeleteModal(true);
-                            }
-                        }}
+                        onClick={() => setDeleteModal(true)}
+                        disabled={entity === null}
                     >
                         Eliminar estación
                     </button>
                 </div>
 
+                {entity?.reference ? (
+                    <a
+                        href={entity.reference}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="reference"
+                    >
+                        <span className="material-icons md-48 action__button">
+                            radio
+                        </span>
+                    </a>
+                ) : (
+                    ""
+                )}
                 {!entity ? (
                     ""
                 ) : (
@@ -183,6 +192,7 @@ const RadioStation = () => {
                         <strong>
                             PROGRAMACIÓN DE {entity.stationName.toUpperCase()}
                         </strong>
+
                         <Link to="/schedule/radio/add-broadcast">
                             <button className="new__broadcast_button">
                                 Nuevo programa

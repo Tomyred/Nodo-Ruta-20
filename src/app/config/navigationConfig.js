@@ -1,4 +1,4 @@
-// To see the full list of icons visit https://fontawesome.com/search?p=1&q=thrash&s=solid%2Cbrands
+// Icons: https://fonts.google.com/icons
 
 const navigationConfig = [
     {

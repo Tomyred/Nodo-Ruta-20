@@ -33,6 +33,11 @@
 
 .action__button {
     cursor: pointer;
+    border-radius: 5px;
+}
+
+.action__button:hover {
+    background-color: rgba(0, 0, 0, 0.146);
 }
 
 .card__info {

@@ -1,8 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import LoadingScreen from "../../../pages/loadingScreen";
-import { removeBroadcast } from "./store/actions";
+import BroadcastDetail from "./broadcastDetail";
+import { removeBroadcast, setBroadcast } from "./store/actions";
+import { useNavigate } from "react-router";
 
 const Table = ({ radioStationStore, dispatch }) => {
+    const [open, setOpen] = useState(false);
+    const navigate = useNavigate();
+    const closeModal = () => {
+        setOpen(false);
+    };
+
     const sortByWeekDays = () => {
         const map = {
             Lunes: 1,
@@ -30,87 +38,116 @@ const Table = ({ radioStationStore, dispatch }) => {
         dispatch(removeBroadcast(broadcast, day, radioStationStore.entity._id));
     };
 
-    const componentContent = () => {
-        if (radioStationStore.loading) {
-            return <LoadingScreen />;
-        } else if (radioStationStore.loadingError) {
-            return <h3 style={{ marginTop: 20 }}>No hay datos</h3>;
-        } else if (radioStationStore.entity === null) {
-            return <h3 style={{ marginTop: 20 }}>No hay datos</h3>;
-        } else {
-            return sortByWeekDays().map((element, i) => {
-                return (
-                    <table key={i} className="schedule__table">
-                        <thead>
-                            <tr>
-                                <th id="day">
-                                    {element.day.toLocaleUpperCase()}
-                                </th>
-                                <th> PROGRAMAS </th>
-                                <th> CONDUCTORES/AS </th>
-                                <th id="actions">Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {sortByTime(element.broadcasts).map(
-                                (broadcast, j) => {
-                                    return (
-                                        <tr key={j}>
-                                            <td> {broadcast.hour} </td>
-                                            <td> {broadcast.name} </td>
-                                            <td>
-                                                {broadcast.hosts.map(
-                                                    (host, i) => {
-                                                        if (
-                                                            i + 1 <
-                                                            broadcast.hosts
-                                                                .length
-                                                        ) {
-                                                            return `${host}, `;
-                                                        } else {
-                                                            return host;
-                                                        }
-                                                    }
-                                                )}
-                                            </td>
-                                            <td>
-                                                <span
-                                                    style={{
-                                                        marginRight: "10px",
-                                                    }}
-                                                    className="material-icons md-36 action__button"
-                                                    onClick={() =>
-                                                        deleteBroadcast(
-                                                            broadcast,
-                                                            element.day
-                                                        )
-                                                    }
-                                                >
-                                                    delete
-                                                </span>
-                                                <span
-                                                    style={{
-                                                        marginRight: "10px",
-                                                    }}
-                                                    className="material-icons md-36 action__button"
-                                                >
-                                                    edit
-                                                </span>
-                                            </td>
-                                        </tr>
-                                    );
-                                }
-                            )}
-                        </tbody>
-                    </table>
-                );
-            });
-        }
+    const showDetail = (broadcast, day) => {
+        dispatch(setBroadcast(broadcast));
+        setOpen(true);
     };
 
-    const component = componentContent();
+    const editClickHandler = (broadcast, day) => {
+        dispatch(setBroadcast(broadcast, day));
+        navigate(`add-broadcast/${broadcast._id}`);
+    };
 
-    return <>{component}</>;
+    if (radioStationStore.loading) {
+        return <LoadingScreen />;
+    }
+
+    if (radioStationStore.loadingError) {
+        return <h3 style={{ marginTop: 20 }}>No hay datos</h3>;
+    }
+
+    if (radioStationStore.entity === null) {
+        return <h3 style={{ marginTop: 20 }}>No hay datos</h3>;
+    }
+
+    return sortByWeekDays().map((element, i) => {
+        return (
+            <div
+                style={{
+                    width: "100%",
+                }}
+                key={i}
+            >
+                {open === false ? (
+                    ""
+                ) : (
+                    <BroadcastDetail
+                        radioStationStore={radioStationStore}
+                        closeModal={closeModal}
+                    />
+                )}
+                <table className="schedule__table">
+                    <thead>
+                        <tr>
+                            <th id="daycell">
+                                {element.day.toLocaleUpperCase()}
+                            </th>
+                            <th> PROGRAMAS </th>
+                            <th> CONDUCTORES/AS </th>
+                            <th id="actions">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {sortByTime(element.broadcasts).map((broadcast, j) => {
+                            return (
+                                <tr key={j}>
+                                    <td> {broadcast.hour} </td>
+                                    <td> {broadcast.name} </td>
+                                    <td>
+                                        {broadcast.hosts.map((host, i) => {
+                                            if (
+                                                i + 1 <
+                                                broadcast.hosts.length
+                                            ) {
+                                                return `${host}, `;
+                                            } else {
+                                                return host;
+                                            }
+                                        })}
+                                    </td>
+                                    <td className="action__cell">
+                                        <span
+                                            className="material-icons md-36 action__button"
+                                            onClick={() =>
+                                                deleteBroadcast(
+                                                    broadcast,
+                                                    element.day
+                                                )
+                                            }
+                                        >
+                                            delete
+                                        </span>
+                                        <span
+                                            onClick={() =>
+                                                editClickHandler(
+                                                    broadcast,
+                                                    element.day
+                                                )
+                                            }
+                                            className="material-icons md-36 action__button"
+                                        >
+                                            edit
+                                        </span>
+                                        <span
+                                            onClick={() =>
+                                                showDetail(
+                                                    broadcast,
+                                                    element.day
+                                                )
+                                            }
+                                            className="material-icons md-36 action__button"
+                                        >
+                                            search
+                                        </span>
+                                    </td>
+                                </tr>
+                            );
+                        })}
+                    </tbody>
+                </table>
+            </div>
+        );
+    });
 };
 
 export default Table;
