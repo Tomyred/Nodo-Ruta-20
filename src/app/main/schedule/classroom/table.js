@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import LoadingScreen from "../../../pages/loadingScreen";
-import BroadcastDetail from "./broadcastDetail";
-import { removeBroadcast, setBroadcast } from "./store/actions";
+import CourseDetail from "./courseDetail";
+import { removeCourse, setCourse } from "./store/actions";
 import { useNavigate } from "react-router";
 
-const Table = ({ radioStationStore, dispatch }) => {
+const Table = ({ classroomStore, dispatch }) => {
     const [open, setOpen] = useState(false);
     const navigate = useNavigate();
     const closeModal = () => {
@@ -21,7 +21,7 @@ const Table = ({ radioStationStore, dispatch }) => {
             Sabado: 6,
             Domingo: 7,
         };
-        const sorted = radioStationStore.entity.schedule.sort((a, b) => {
+        const sorted = classroomStore.entity.schedule.sort((a, b) => {
             return map[a.day] - map[b.day];
         });
         return sorted;
@@ -34,29 +34,29 @@ const Table = ({ radioStationStore, dispatch }) => {
         return sorted;
     };
 
-    const deleteBroadcast = (broadcast, day) => {
-        dispatch(removeBroadcast(broadcast, day, radioStationStore.entity._id));
+    const deleteCourse = (course, day) => {
+        dispatch(removeCourse(course, day, classroomStore.entity._id));
     };
 
-    const showDetail = (broadcast, day) => {
-        dispatch(setBroadcast(broadcast));
+    const showDetail = (course, day) => {
+        dispatch(setCourse(course));
         setOpen(true);
     };
 
-    const editClickHandler = (broadcast, day) => {
-        dispatch(setBroadcast(broadcast, day));
-        navigate(`new-broadcast/${broadcast._id}`);
+    const editClickHandler = (course, day) => {
+        dispatch(setCourse(course, day));
+        navigate(`new-course/${course._id}`);
     };
 
-    if (radioStationStore.loading) {
+    if (classroomStore.loading) {
         return <LoadingScreen />;
     }
 
-    if (radioStationStore.loadingError) {
+    if (classroomStore.loadingError) {
         return <h3 style={{ marginTop: 20 }}>No hay datos</h3>;
     }
 
-    if (radioStationStore.entity === null) {
+    if (classroomStore.entity === null) {
         return <h3 style={{ marginTop: 20 }}>No hay datos</h3>;
     }
 
@@ -71,8 +71,8 @@ const Table = ({ radioStationStore, dispatch }) => {
                 {open === false ? (
                     ""
                 ) : (
-                    <BroadcastDetail
-                        radioStationStore={radioStationStore}
+                    <CourseDetail
+                        classroomStore={classroomStore}
                         closeModal={closeModal}
                     />
                 )}
@@ -88,17 +88,14 @@ const Table = ({ radioStationStore, dispatch }) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {sortByTime(element.broadcasts).map((broadcast, j) => {
+                        {sortByTime(element.courses).map((course, j) => {
                             return (
                                 <tr key={j}>
-                                    <td> {broadcast.hour} </td>
-                                    <td> {broadcast.name} </td>
+                                    <td> {course.hour} </td>
+                                    <td> {course.name} </td>
                                     <td>
-                                        {broadcast.hosts.map((host, i) => {
-                                            if (
-                                                i + 1 <
-                                                broadcast.hosts.length
-                                            ) {
+                                        {course.hosts.map((host, i) => {
+                                            if (i + 1 < course.hosts.length) {
                                                 return `${host}, `;
                                             } else {
                                                 return host;
@@ -109,8 +106,8 @@ const Table = ({ radioStationStore, dispatch }) => {
                                         <span
                                             className="material-icons md-36 action__button"
                                             onClick={() =>
-                                                deleteBroadcast(
-                                                    broadcast,
+                                                deleteCourse(
+                                                    course,
                                                     element.day
                                                 )
                                             }
@@ -120,7 +117,7 @@ const Table = ({ radioStationStore, dispatch }) => {
                                         <span
                                             onClick={() =>
                                                 editClickHandler(
-                                                    broadcast,
+                                                    course,
                                                     element.day
                                                 )
                                             }
@@ -130,10 +127,7 @@ const Table = ({ radioStationStore, dispatch }) => {
                                         </span>
                                         <span
                                             onClick={() =>
-                                                showDetail(
-                                                    broadcast,
-                                                    element.day
-                                                )
+                                                showDetail(course, element.day)
                                             }
                                             className="material-icons md-36 action__button"
                                         >

@@ -1,10 +1,10 @@
-import ConfigurationPanel from ".";
+import { lazy } from "react";
 
 const configurationPanelRoutes = [
     {
         path: "/settings",
         exact: true,
-        component: <ConfigurationPanel />,
+        component: lazy(() => import(".")),
     },
 ];
 

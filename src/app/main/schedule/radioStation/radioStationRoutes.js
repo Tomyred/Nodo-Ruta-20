@@ -1,37 +1,35 @@
-import Radio from ".";
-import Broadcast from "./forms/broadcast";
-import Station from "./forms/station";
+import { lazy } from "react";
 
 const radioRoutes = [
     {
         path: "/schedule/radio",
         exact: true,
-        component: <Radio />,
+        component: lazy(() => import(".")),
     },
     {
         path: "/schedule/radio/new-station",
         exact: true,
-        component: <Station />,
+        component: lazy(() => import("./forms/station")),
     },
     {
-        path: "/schedule/radio/add-broadcast",
+        path: "/schedule/radio/new-broadcast",
         exact: true,
-        component: <Broadcast />,
+        component: lazy(() => import("./forms/broadcast")),
     },
     {
-        path: "/schedule/radio/add-broadcast/:id",
+        path: "/schedule/radio/new-broadcast/:id",
         exact: true,
-        component: <Broadcast />,
+        component: lazy(() => import("./forms/broadcast")),
     },
     {
         path: "/schedule/radio/new-station",
         exact: true,
-        component: <Station />,
+        component: lazy(() => import("./forms/station")),
     },
     {
         path: "/schedule/radio/new-station/:id",
         exact: true,
-        component: <Station />,
+        component: lazy(() => import("./forms/station")),
     },
 ];
 

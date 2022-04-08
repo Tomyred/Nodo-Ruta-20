@@ -2,37 +2,43 @@ import React, { useEffect, useState } from "react";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, useForm } from "react-hook-form";
-import { createRadioStation } from "../store/actions";
+import { createClassroom } from "../../store/actions";
+import { useDispatch } from "react-redux";
 
 const schema = yup.object().shape({
-    stationName: yup.string().required("Este campo es requerido"),
+    classroomName: yup.string().required("Este campo es requerido"),
     day: yup.string().required("Este campo es requerido"),
     hour: yup.string().required("Este campo es requerido"),
     name: yup.string().required("Este campo es requerido"),
+    description: yup.string(),
+    reference: yup.string(),
 });
 
-const StationForm = ({ closeModal, dispatch }) => {
+const Form = ({ submit, setSubmit, setDisable }) => {
+    const dispatch = useDispatch();
+
     const defaultValues = {};
     const [host, setHost] = useState("");
     const [hosts, setHosts] = useState([]);
-    const [enableButton, setEnableButton] = useState(false);
 
     const { formState, control, getValues } = useForm({
         defaultValues,
         mode: "onChange",
         resolver: yupResolver(schema),
     });
-
     const { isValid, errors } = formState;
-
     useEffect(() => {
         if (isValid && hosts.length > 0) {
-            setEnableButton(true);
+            setDisable(true);
         } else {
-            setEnableButton(false);
+            setDisable(false);
+        }
+        if (submit === true) {
+            handleSubmit();
+            setSubmit(false);
         }
         //eslint-disable-next-line
-    }, [isValid, hosts.length]);
+    }, [isValid, hosts.length, submit]);
 
     const addToHostList = () => {
         setHosts([...hosts, host]);
@@ -45,26 +51,28 @@ const StationForm = ({ closeModal, dispatch }) => {
     };
 
     const handleSubmit = () => {
-        const { stationName, day, hour, name } = getValues();
-        const newRadioStation = {
-            stationName,
-            schedule: [{ day, broadcasts: [{ hour, name, hosts }] }],
+        const { classroomName, day, hour, name, description, reference } =
+            getValues();
+        const newClassroom = {
+            classroomName,
+            reference,
+            schedule: [{ day, courses: [{ hour, name, hosts, description }] }],
         };
-        dispatch(createRadioStation(newRadioStation));
-        closeModal();
+        dispatch(createClassroom(newClassroom));
     };
 
     return (
         <div className="form__container">
-            <label htmlFor="day"> Nombre de la emisora </label>
+            <label htmlFor="classroomName"> Nombre del aula </label>
             <Controller
-                name="stationName"
+                name="classroomName"
                 control={control}
                 defaultValue=""
                 render={({ field }) => {
                     return (
                         <input
                             {...field}
+                            id="classroomName"
                             type="text"
                             className="form__element"
                         />
@@ -72,8 +80,24 @@ const StationForm = ({ closeModal, dispatch }) => {
                 }}
             />
             <span className="error_message">
-                {errors.stationName ? errors.stationName.message : ""}
+                {errors.classroomName ? errors.classroomName.message : ""}
             </span>
+            <label htmlFor="reference"> Dirección (URL o fisica) </label>
+            <Controller
+                name="reference"
+                control={control}
+                defaultValue=""
+                render={({ field }) => {
+                    return (
+                        <input
+                            id="reference"
+                            {...field}
+                            type="text"
+                            className="form__element"
+                        />
+                    );
+                }}
+            />
             <span
                 style={{
                     marginTop: 10,
@@ -81,8 +105,7 @@ const StationForm = ({ closeModal, dispatch }) => {
                     display: "block",
                 }}
             >
-                {" "}
-                Crear con al menos un programa{" "}
+                Crear con al menos un curso
             </span>
             <hr style={{ marginBottom: 10 }} />
             <div className="short__elements">
@@ -146,7 +169,7 @@ const StationForm = ({ closeModal, dispatch }) => {
                     </span>
                 </div>
             </div>
-            <label>Nombre del programa</label>
+            <label>Nombre del curso</label>
             <Controller
                 name="name"
                 control={control}
@@ -164,7 +187,24 @@ const StationForm = ({ closeModal, dispatch }) => {
             <span className="error_message">
                 {errors.name ? errors.name.message : ""}
             </span>
-            <label htmlFor="hosts">Conductores</label>
+            <label htmlFor="description">Descripción</label>
+            <Controller
+                name="description"
+                control={control}
+                defaultValue=""
+                render={({ field }) => {
+                    return (
+                        <textarea
+                            {...field}
+                            className="form__element"
+                            cols="30"
+                            rows="10"
+                            id="description"
+                        ></textarea>
+                    );
+                }}
+            />
+            <label htmlFor="hosts">Instructores</label>
             <div className="host__field">
                 <input
                     onChange={e => setHost(e.target.value)}
@@ -181,27 +221,22 @@ const StationForm = ({ closeModal, dispatch }) => {
                 <div className="hosts__container">
                     {hosts.map((host, i) => {
                         return (
-                            <span
+                            <div
                                 onClick={() => removeHost(i)}
                                 key={i}
                                 className="hostslists__element"
                             >
-                                {host}
-                            </span>
+                                <span>{host}</span>
+                                <span className="material-icons md-36">
+                                    delete
+                                </span>
+                            </div>
                         );
                     })}
                 </div>
             </div>
-            <button
-                type="submit"
-                disabled={!enableButton}
-                className="submit__button"
-                onClick={handleSubmit}
-            >
-                Enviar
-            </button>
         </div>
     );
 };
 
-export default StationForm;
+export default Form;

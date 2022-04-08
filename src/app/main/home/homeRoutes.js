@@ -1,10 +1,10 @@
-import Home from ".";
+import { lazy } from "react";
 
 const homeRoutes = [
     {
         path: "/home",
         exact: true,
-        component: <Home />,
+        component: lazy(() => import(".")),
     },
 ];
 

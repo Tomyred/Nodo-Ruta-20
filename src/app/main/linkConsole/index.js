@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
+import { useParams } from "react-router";
 import LoadingScreen from "../../pages/loadingScreen";
 import Card from "./card";
 import DialogForm from "./dialog/form";
 import { loadLinks, removeLink, setEntityToEdit } from "./store/actions";
 
-const LinkConsole = ({ group, title }) => {
+const LinkConsole = () => {
     const dispatch = useDispatch();
     const [open, setOpen] = useState(false);
     const links = useSelector(store => store.linkConsole.data);
     const loading = useSelector(store => store.linkConsole.loading);
     const saved = useSelector(store => store.linkConsole.saved);
     const deleted = useSelector(store => store.linkConsole.deleted);
+    const { group, title } = useParams();
 
     useEffect(() => {
         dispatch(loadLinks(group));

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import RadioDialog from "./dialog";
 import {
     deleteRadioStation,
     loadRadioById,
@@ -30,7 +29,6 @@ const RadioStation = () => {
     const [radioStationId, setRadioStationId] = useState(
         entity ? entity._id : ""
     );
-    const [open, setOpen] = useState(false);
     const [deleteModal, setDeleteModal] = useState(false);
 
     useEffect(() => {
@@ -124,16 +122,6 @@ const RadioStation = () => {
     }
     return (
         <div className="radio__component">
-            {open === false ? (
-                ""
-            ) : (
-                <RadioDialog
-                    radioStationStore={radioStationStore}
-                    dispatch={dispatch}
-                    setOpen={setOpen}
-                />
-            )}
-
             {deleteConfirmationModal}
             <div
                 initial={{ opacity: 0, scale: 0.2 }}

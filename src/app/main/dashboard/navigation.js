@@ -17,7 +17,7 @@ const Navigation = props => {
     };
 
     return (
-        <div className="navigation">
+        <nav className="navigation">
             <div className="session_options">
                 <Link className="session_option" to="/settings">
                     Configuración
@@ -99,7 +99,7 @@ const Navigation = props => {
                     );
                 }
             })}
-        </div>
+        </nav>
     );
 };
 

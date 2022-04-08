@@ -1,9 +1,10 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { Navigate, Route, Routes } from "react-router";
 import routes from "../../config/routesConfig";
 import Page404 from "../../pages/page404";
 import TopNavbar from "./topNavbar";
 import Sidebar from "./sidebar";
+import LoadingScreen from "../../pages/loadingScreen";
 
 const Dashboard = () => {
     return (
@@ -13,6 +14,7 @@ const Dashboard = () => {
 
                 <div className="big__container">
                     <TopNavbar />
+                    <div className="fll"></div>
                     <div className="page__container">
                         <Routes>
                             <Route
@@ -31,7 +33,13 @@ const Dashboard = () => {
                                         key={i}
                                         path={route.path}
                                         exact={route.exact}
-                                        element={route.component}
+                                        element={
+                                            <Suspense
+                                                fallback={<LoadingScreen />}
+                                            >
+                                                <route.component />
+                                            </Suspense>
+                                        }
                                     />
                                 ))
                             )}

@@ -2,60 +2,76 @@ import React, { useEffect, useState } from "react";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, useForm } from "react-hook-form";
-import { addBroadcastToRadio } from "../store/actions";
+import { addCourse, editCourse } from "../../store/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router";
 
 const schema = yup.object().shape({
     day: yup.string().required("Este campo es requerido"),
     hour: yup.string().required("Este campo es requerido"),
     name: yup.string().required("Este campo es requerido"),
+    description: yup.string(),
 });
 
-const BroadcastForm = ({ dispatch, entity, closeModal }) => {
-    const defaultValues = "";
-
+const Form = ({ submit, setSubmit, setDisable }) => {
+    const dispatch = useDispatch();
+    const { id } = useParams();
+    const { entity, course } = useSelector(store => store.schedule.classroom);
     const [host, setHost] = useState("");
-    const [hosts, setHosts] = useState([]);
-    const [enableButton, setEnableButton] = useState(false);
-
+    const [hosts, setHosts] = useState(id && course?.hosts ? course.hosts : []);
+    const defaultValues = id ? course : { day: "Lunes" };
     const { formState, control, getValues } = useForm({
         defaultValues,
         mode: "onChange",
         resolver: yupResolver(schema),
     });
-
     const { isValid, errors } = formState;
-
     useEffect(() => {
         if (isValid && hosts.length > 0) {
-            setEnableButton(true);
+            setDisable(true);
         } else {
-            setEnableButton(false);
+            setDisable(false);
+        }
+        if (submit === true) {
+            handleSubmit();
+            setSubmit(false);
         }
         //eslint-disable-next-line
-    }, [isValid, hosts.length]);
+    }, [isValid, hosts.length, submit]);
 
     const addToHostList = () => {
         setHosts([...hosts, host]);
         setHost("");
     };
-
     const removeHost = i => {
         hosts.splice(i, 1);
         setHosts([...hosts]);
     };
 
     const handleSubmit = () => {
-        const { day, hour, name } = getValues();
-        const newBroadcast = { day, broadcasts: [{ hour, name, hosts }] };
+        if (id) {
+            const { day, hour, name, description, _id } = getValues();
+            const courseToUpdate = { hour, name, description, hosts, _id };
+            dispatch(editCourse(courseToUpdate, day, entity._id));
+        } else {
+            const { day, hour, name, description } = getValues();
+            const newCourse = {
+                day,
+                courses: [{ hour, name, hosts, description }],
+            };
 
-        dispatch(addBroadcastToRadio(newBroadcast, entity._id));
-        closeModal();
+            dispatch(addCourse(newCourse, entity._id));
+        }
     };
+
+    if (!entity) {
+        return <p>No hay un aula seleccionada</p>;
+    }
 
     return (
         <div className="form__container">
             <span>
-                Agregar programa a: <strong>{entity.stationName}</strong>
+                Agregar programa a: <strong>{entity.classroomName}</strong>
             </span>
             <div className="short__elements">
                 <div>
@@ -63,12 +79,11 @@ const BroadcastForm = ({ dispatch, entity, closeModal }) => {
                     <Controller
                         name="day"
                         control={control}
-                        defaultValue="Lunes"
                         render={({ field }) => {
                             return (
                                 <select
+                                    id="day"
                                     {...field}
-                                    name=""
                                     className="form__element"
                                 >
                                     <option {...field} value="Lunes">
@@ -98,7 +113,7 @@ const BroadcastForm = ({ dispatch, entity, closeModal }) => {
                     />
                 </div>
                 <div>
-                    <label>Horario</label>
+                    <label htmlFor="hour">Horario</label>
                     <Controller
                         name="hour"
                         control={control}
@@ -106,6 +121,7 @@ const BroadcastForm = ({ dispatch, entity, closeModal }) => {
                         render={({ field }) => {
                             return (
                                 <input
+                                    id="hour"
                                     {...field}
                                     type="time"
                                     className="form__element"
@@ -119,7 +135,7 @@ const BroadcastForm = ({ dispatch, entity, closeModal }) => {
                 </div>
             </div>
 
-            <label>Nombre del programa</label>
+            <label htmlFor="name">Nombre del curso</label>
             <Controller
                 name="name"
                 control={control}
@@ -128,6 +144,7 @@ const BroadcastForm = ({ dispatch, entity, closeModal }) => {
                     return (
                         <input
                             {...field}
+                            id="name"
                             type="text"
                             className="form__element"
                         />
@@ -137,44 +154,60 @@ const BroadcastForm = ({ dispatch, entity, closeModal }) => {
             <span className="error_message">
                 {errors.name ? errors.name.message : ""}
             </span>
-            <label htmlFor="hosts">Conductores</label>
+            <label htmlFor="description">Descripción</label>
+            <Controller
+                name="description"
+                control={control}
+                defaultValue=""
+                render={({ field }) => {
+                    return (
+                        <textarea
+                            {...field}
+                            className="form__element"
+                            cols="30"
+                            rows="10"
+                            id="description"
+                        ></textarea>
+                    );
+                }}
+            />
+
+            <label htmlFor="hosts">Instructor</label>
             <div className="host__field">
                 <input
                     onChange={e => setHost(e.target.value)}
                     type="text"
                     value={host}
+                    id="hosts"
                     className="form__element"
                 />
                 <span className="error_message">
                     {hosts.length === 0
-                        ? "Debe contener al menos un conductor/a"
+                        ? "Debe contener al menos un instructor/a"
                         : ""}
                 </span>
-                <button onClick={addToHostList}> + </button>
+                <button disabled={host.length === 0} onClick={addToHostList}>
+                    +
+                </button>
                 <div className="hosts__container">
                     {hosts.map((host, i) => {
                         return (
-                            <span
+                            <div
                                 onClick={() => removeHost(i)}
                                 key={i}
                                 className="hostslists__element"
                             >
-                                {host}
-                            </span>
+                                <span>{host}</span>
+                                <span className="material-icons md-36">
+                                    delete
+                                </span>
+                            </div>
                         );
                     })}
                 </div>
             </div>
-            <button
-                type="submit"
-                disabled={!enableButton}
-                className="submit__button"
-                onClick={handleSubmit}
-            >
-                Enviar
-            </button>
         </div>
     );
 };
 
-export default BroadcastForm;
+export default Form;
