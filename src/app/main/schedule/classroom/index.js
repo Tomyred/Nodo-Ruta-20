@@ -165,7 +165,7 @@ const Classroom = () => {
                         className="reference"
                     >
                         <span className="material-icons md-48 action__button">
-                            radio
+                        school
                         </span>
                     </a>
                 ) : (

@@ -14,10 +14,8 @@ const SmallSidebar = () => {
                     menu
                 </span>
             </div>
-            <Collapsible className="nav__collapse" open={open}>
-                <div className="nav__page">
-                    <Navigation setOpen={setOpen} />
-                </div>
+            <Collapsible open={open}>
+                <Navigation setOpen={setOpen} />
             </Collapsible>
         </nav>
     );

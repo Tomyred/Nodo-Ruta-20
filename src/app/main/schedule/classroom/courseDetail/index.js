@@ -13,7 +13,7 @@ const CourseDetail = ({ classroomStore, closeModal }) => {
         >
             <div>
                 <h3>{course.name}</h3>
-                <h4>Conductores</h4>
+                <h4>Instructor/es</h4>
                 <p>
                     {course.hosts.map((host, i) => {
                         if (i + 1 < course.hosts.length) {

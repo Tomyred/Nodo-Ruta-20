@@ -14,7 +14,6 @@ const Dashboard = () => {
 
                 <div className="big__container">
                     <TopNavbar />
-                    <div className="fll"></div>
                     <div className="page__container">
                         <Routes>
                             <Route
