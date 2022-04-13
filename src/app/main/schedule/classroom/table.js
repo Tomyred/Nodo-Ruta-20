@@ -83,7 +83,7 @@ const Table = ({ classroomStore, dispatch }) => {
                                 {element.day.toLocaleUpperCase()}
                             </th>
                             <th> PROGRAMAS </th>
-                            <th> CONDUCTORES/AS </th>
+                            <th> INSTRUCTORES/AS </th>
                             <th id="actions">Acciones</th>
                         </tr>
                     </thead>

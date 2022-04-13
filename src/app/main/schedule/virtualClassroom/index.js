@@ -127,7 +127,7 @@ const Classroom = () => {
                 }}
                 className="radio__header"
             >
-                <h2>Aulas</h2>
+                <h2>Aula virtual</h2>
                 <p>Programación</p>
             </div>
             <div className="radio__body">
@@ -162,7 +162,7 @@ const Classroom = () => {
                         className="reference"
                     >
                         <span className="material-icons md-48 action__button">
-                            school
+                            cast_for_education
                         </span>
                     </a>
                 ) : (
