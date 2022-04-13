@@ -2,25 +2,24 @@ import React, { useEffect, useState } from "react";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, useForm } from "react-hook-form";
-import { createClassroom } from "../../store/actions";
-import { useDispatch } from "react-redux";
+import { addCourse, editCourse } from "../../store/actions";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router";
 
 const schema = yup.object().shape({
-    classroomName: yup.string().required("Este campo es requerido"),
     day: yup.string().required("Este campo es requerido"),
     hour: yup.string().required("Este campo es requerido"),
     name: yup.string().required("Este campo es requerido"),
     description: yup.string(),
-    reference: yup.string(),
 });
 
 const Form = ({ submit, setSubmit, setDisable }) => {
     const dispatch = useDispatch();
-
-    const defaultValues = {};
+    const { id } = useParams();
+    const { entity, course } = useSelector(store => store.schedule.classroom);
     const [host, setHost] = useState("");
-    const [hosts, setHosts] = useState([]);
-
+    const [hosts, setHosts] = useState(id && course?.hosts ? course.hosts : []);
+    const defaultValues = id ? course : { day: "Lunes" };
     const { formState, control, getValues } = useForm({
         defaultValues,
         mode: "onChange",
@@ -44,83 +43,47 @@ const Form = ({ submit, setSubmit, setDisable }) => {
         setHosts([...hosts, host]);
         setHost("");
     };
-
     const removeHost = i => {
         hosts.splice(i, 1);
         setHosts([...hosts]);
     };
 
     const handleSubmit = () => {
-        const { classroomName, day, hour, name, description, reference } =
-            getValues();
-        const newClassroom = {
-            classroomName,
-            reference,
-            type: "normal",
-            schedule: [{ day, courses: [{ hour, name, hosts, description }] }],
-        };
-        dispatch(createClassroom(newClassroom));
+        if (id) {
+            const { day, hour, name, description, _id } = getValues();
+            const courseToUpdate = { hour, name, description, hosts, _id };
+            dispatch(editCourse(courseToUpdate, day, entity._id));
+        } else {
+            const { day, hour, name, description } = getValues();
+            const newCourse = {
+                day,
+                courses: [{ hour, name, hosts, description }],
+            };
+
+            dispatch(addCourse(newCourse, entity._id));
+        }
     };
+
+    if (!entity) {
+        return <p>No hay un aula seleccionada</p>;
+    }
 
     return (
         <div className="form__container">
-            <label htmlFor="classroomName"> Nombre del aula </label>
-            <Controller
-                name="classroomName"
-                control={control}
-                defaultValue=""
-                render={({ field }) => {
-                    return (
-                        <input
-                            {...field}
-                            id="classroomName"
-                            type="text"
-                            className="form__element"
-                        />
-                    );
-                }}
-            />
-            <span className="error_message">
-                {errors.classroomName ? errors.classroomName.message : ""}
+            <span>
+                Agregar programa a: <strong>{entity.classroomName}</strong>
             </span>
-            <label htmlFor="reference"> Dirección (URL o fisica) </label>
-            <Controller
-                name="reference"
-                control={control}
-                defaultValue=""
-                render={({ field }) => {
-                    return (
-                        <input
-                            id="reference"
-                            {...field}
-                            type="text"
-                            className="form__element"
-                        />
-                    );
-                }}
-            />
-            <span
-                style={{
-                    marginTop: 10,
-
-                    display: "block",
-                }}
-            >
-                Crear con al menos un curso
-            </span>
-            <hr style={{ marginBottom: 10 }} />
             <div className="short__elements">
                 <div>
                     <label htmlFor="day"> Dia </label>
                     <Controller
                         name="day"
                         control={control}
-                        defaultValue="Lunes"
                         render={({ field }) => {
                             return (
                                 <select
+                                    id="day"
                                     {...field}
-                                    name=""
                                     className="form__element"
                                 >
                                     <option {...field} value="Lunes">
@@ -150,7 +113,7 @@ const Form = ({ submit, setSubmit, setDisable }) => {
                     />
                 </div>
                 <div>
-                    <label>Horario</label>
+                    <label htmlFor="hour">Horario</label>
                     <Controller
                         name="hour"
                         control={control}
@@ -158,6 +121,7 @@ const Form = ({ submit, setSubmit, setDisable }) => {
                         render={({ field }) => {
                             return (
                                 <input
+                                    id="hour"
                                     {...field}
                                     type="time"
                                     className="form__element"
@@ -170,7 +134,8 @@ const Form = ({ submit, setSubmit, setDisable }) => {
                     </span>
                 </div>
             </div>
-            <label>Nombre del curso</label>
+
+            <label htmlFor="name">Nombre del curso</label>
             <Controller
                 name="name"
                 control={control}
@@ -179,6 +144,7 @@ const Form = ({ submit, setSubmit, setDisable }) => {
                     return (
                         <input
                             {...field}
+                            id="name"
                             type="text"
                             className="form__element"
                         />
@@ -205,20 +171,24 @@ const Form = ({ submit, setSubmit, setDisable }) => {
                     );
                 }}
             />
-            <label htmlFor="hosts">Instructores</label>
+
+            <label htmlFor="hosts">Instructor</label>
             <div className="host__field">
                 <input
                     onChange={e => setHost(e.target.value)}
                     type="text"
                     value={host}
+                    id="hosts"
                     className="form__element"
                 />
                 <span className="error_message">
                     {hosts.length === 0
-                        ? "Debe contener al menos un conductor/a"
+                        ? "Debe contener al menos un instructor/a"
                         : ""}
                 </span>
-                <button onClick={addToHostList}> + </button>
+                <button disabled={host.length === 0} onClick={addToHostList}>
+                    +
+                </button>
                 <div className="hosts__container">
                     {hosts.map((host, i) => {
                         return (

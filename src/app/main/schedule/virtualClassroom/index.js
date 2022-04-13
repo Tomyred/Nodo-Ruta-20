@@ -1,68 +1,66 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-    deleteRadioStation,
-    loadRadioById,
-    loadRadioNames,
+    deleteClassroom,
+    loadClassroomById,
+    loadClassroomNames,
 } from "./store/actions";
 import Table from "./table";
 import Modal from "react-modal/lib/components/Modal";
 import LoadingScreen from "../../../pages/loadingScreen";
 import { Link } from "react-router-dom";
 
-const RadioStation = () => {
+const Classroom = () => {
     const dispatch = useDispatch();
-    const radioStationStore = useSelector(store => store.schedule.radioStation);
+    const v_classroomStore = useSelector(store => store.schedule.v_classroom);
     const {
         namesLoaded,
         saved,
         deleted,
-        radioNames,
+        classroomNames,
         namesLoading,
         namesLoadingError,
         entity,
-        deletingStation,
+        deletingClassroom,
         loading,
-        stationDeleted,
-    } = radioStationStore;
+        classroomDeleted,
+    } = v_classroomStore;
 
-    const [radioStationId, setRadioStationId] = useState(
-        entity ? entity._id : ""
-    );
+    const [classroomId, setClassroomId] = useState(entity ? entity._id : "");
     const [deleteModal, setDeleteModal] = useState(false);
 
     useEffect(() => {
         if (namesLoaded === false) {
-            dispatch(loadRadioNames());
+            dispatch(loadClassroomNames());
         }
-        if (saved && radioStationId) {
-            dispatch(loadRadioById(radioStationId));
+        if (saved && classroomId) {
+            dispatch(loadClassroomById(classroomId));
         }
-        if (deleted === true && radioStationId) {
-            dispatch(loadRadioById(radioStationId));
+        if (deleted === true && classroomId) {
+            dispatch(loadClassroomById(classroomId));
         }
-        if (stationDeleted) {
+        if (classroomDeleted) {
             setDeleteModal(false);
         }
-    }, [namesLoaded, saved, deleted, dispatch, radioStationId, stationDeleted]);
+    }, [namesLoaded, saved, deleted, dispatch, classroomId, classroomDeleted]);
 
-    const getRadioStation = id => {
-        setRadioStationId(id);
+    const getClassroom = id => {
+        setClassroomId(id);
         if (!id) {
             return;
         }
 
-        dispatch(loadRadioById(id));
+        dispatch(loadClassroomById(id));
     };
     const setSelectContent = () => {
-        if (namesLoaded && radioNames.length === 0) {
+        if (namesLoaded && classroomNames.length === 0) {
             return <option value="">No hay datos</option>;
         }
-        if (radioNames.length > 0) {
-            return radioNames.map((station, i) => {
+        if (classroomNames.length > 0) {
+            return classroomNames.map((classroom, i) => {
                 return (
-                    <option key={i} value={station._id}>
-                        {station.stationName}
+                    <option key={i} value={classroom._id}>
+                        {classroom.classroomName}
                     </option>
                 );
             });
@@ -73,12 +71,12 @@ const RadioStation = () => {
         }
 
         if (namesLoadingError) {
-            return <option value=""> Error cargando las estaciones </option>;
+            return <option value=""> Error cargando las aulas </option>;
         }
     };
 
     const handleDeleteConfirm = () => {
-        dispatch(deleteRadioStation(entity._id));
+        dispatch(deleteClassroom(entity._id));
     };
 
     const selectContent = setSelectContent();
@@ -94,8 +92,8 @@ const RadioStation = () => {
                 className="delete__modal"
             >
                 <p>
-                    ¿Seguro que quieres eliminar la emisora{" "}
-                    <strong> {entity.stationName}</strong>?
+                    ¿Seguro que quieres eliminar el aula?
+                    <strong> {entity.classRoomName}</strong>?
                 </p>
                 <div>
                     <button
@@ -114,7 +112,7 @@ const RadioStation = () => {
             </Modal>
         );
 
-    if (deletingStation === true || loading) {
+    if (deletingClassroom === true || loading) {
         <LoadingScreen />;
     }
     return (
@@ -129,22 +127,22 @@ const RadioStation = () => {
                 }}
                 className="radio__header"
             >
-                <h2>Radio</h2>
+                <h2>Aulas</h2>
                 <p>Programación</p>
             </div>
             <div className="radio__body">
-                <Link to="/schedule/radio/new-station">
-                    <button>Nueva emisora</button>
+                <Link to="/schedule/classroom/new-classroom">
+                    <button>Nueva aula</button>
                 </Link>
 
                 <div className="select__container">
                     <select
                         defaultValue=""
                         onChange={e => {
-                            getRadioStation(e.target.value);
+                            getClassroom(e.target.value);
                         }}
                     >
-                        <option value="">Elija una estación</option>
+                        <option value="">Elija un aula</option>
                         {selectContent}
                     </select>
 
@@ -152,7 +150,7 @@ const RadioStation = () => {
                         onClick={() => setDeleteModal(true)}
                         disabled={entity === null}
                     >
-                        Eliminar estación
+                        Eliminar aula
                     </button>
                 </div>
 
@@ -164,7 +162,7 @@ const RadioStation = () => {
                         className="reference"
                     >
                         <span className="material-icons md-48 action__button">
-                            radio
+                            school
                         </span>
                     </a>
                 ) : (
@@ -175,12 +173,12 @@ const RadioStation = () => {
                 ) : (
                     <span className="radio__title">
                         <strong>
-                            PROGRAMACIÓN DE {entity.stationName.toUpperCase()}
+                            PROGRAMACIÓN DE {entity.classroomName.toUpperCase()}
                         </strong>
 
-                        <Link to="/schedule/radio/add-broadcast">
+                        <Link to="new-course">
                             <button className="new__broadcast_button">
-                                Nuevo programa
+                                Nuevo curso
                             </button>
                         </Link>
                     </span>
@@ -188,11 +186,11 @@ const RadioStation = () => {
 
                 <Table
                     dispatch={dispatch}
-                    radioStationStore={radioStationStore}
+                    v_classroomStore={v_classroomStore}
                 />
             </div>
         </div>
     );
 };
 
-export default RadioStation;
+export default Classroom;

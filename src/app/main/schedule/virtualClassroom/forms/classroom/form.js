@@ -56,7 +56,7 @@ const Form = ({ submit, setSubmit, setDisable }) => {
         const newClassroom = {
             classroomName,
             reference,
-            type: "normal",
+            type: "virtual",
             schedule: [{ day, courses: [{ hour, name, hosts, description }] }],
         };
         dispatch(createClassroom(newClassroom));

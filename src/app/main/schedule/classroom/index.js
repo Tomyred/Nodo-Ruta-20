@@ -33,9 +33,6 @@ const Classroom = () => {
         if (namesLoaded === false) {
             dispatch(loadClassroomNames());
         }
-        if (namesLoaded === false) {
-            dispatch(loadClassroomNames());
-        }
         if (saved && classroomId) {
             dispatch(loadClassroomById(classroomId));
         }
@@ -165,7 +162,7 @@ const Classroom = () => {
                         className="reference"
                     >
                         <span className="material-icons md-48 action__button">
-                        school
+                            school
                         </span>
                     </a>
                 ) : (

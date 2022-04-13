@@ -2,9 +2,9 @@ import axios from "axios";
 
 const endpoint = "https://nodo-ruta20-api.herokuapp.com/v1/classroom";
 
-export const load = () => axios.get(`${endpoint}/t/normal`);
+export const load = () => axios.get(`${endpoint}/t/virtual`);
 
-export const loadNames = () => axios.get(`${endpoint}/t/names/normal`);
+export const loadNames = () => axios.get(`${endpoint}/t/names/virtual`);
 
 export const loadById = id => axios.get(`${endpoint}/${id}`);
 
