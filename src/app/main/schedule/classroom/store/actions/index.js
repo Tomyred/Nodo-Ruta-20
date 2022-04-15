@@ -172,7 +172,7 @@ export const editCourse = (updated, day, id) => async dispatch => {
         dispatch({
             type: types.SAVE_INIT,
         });
-        const res = await api.updateCourse((updated, day, id));
+        const res = await api.updateCourse(updated, day, id);
         if (res.data.error === false) {
             dispatch({
                 type: types.SAVE_SUCCEED,
