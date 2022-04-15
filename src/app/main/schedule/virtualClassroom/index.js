@@ -131,7 +131,7 @@ const Classroom = () => {
                 <p>Programación</p>
             </div>
             <div className="radio__body">
-                <Link to="/schedule/classroom/new-classroom">
+                <Link to="new-virtual-classroom">
                     <button>Nueva aula</button>
                 </Link>
 

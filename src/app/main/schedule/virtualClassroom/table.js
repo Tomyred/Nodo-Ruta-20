@@ -45,7 +45,7 @@ const Table = ({ v_classroomStore, dispatch }) => {
 
     const editClickHandler = (course, day) => {
         dispatch(setCourse(course, day));
-        navigate(`new-course/${course._id}`);
+        navigate(`edit-course/${course._id}`);
     };
 
     if (v_classroomStore.loading) {

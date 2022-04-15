@@ -16,7 +16,7 @@ const schema = yup.object().shape({
 const Form = ({ submit, setSubmit, setDisable }) => {
     const dispatch = useDispatch();
     const { id } = useParams();
-    const { entity, course } = useSelector(store => store.schedule.classroom);
+    const { entity, course } = useSelector(store => store.schedule.v_classroom);
     const [host, setHost] = useState("");
     const [hosts, setHosts] = useState(id && course?.hosts ? course.hosts : []);
     const defaultValues = id ? course : { day: "Lunes" };
@@ -63,7 +63,6 @@ const Form = ({ submit, setSubmit, setDisable }) => {
             dispatch(addCourse(newCourse, entity._id));
         }
     };
-
     if (!entity) {
         return <p>No hay un aula seleccionada</p>;
     }
