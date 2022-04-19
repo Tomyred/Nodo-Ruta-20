@@ -22,7 +22,7 @@ const virtualClassroomRoutes = [
     //     component: lazy(() => import("./forms/classroom/index")),
     // },
     {
-        path: "/schedule/virtual-classroom/edit-course/:id",
+        path: "/schedule/virtual-classroom/edit-course/:elmDay/:id",
         exact: true,
         component: lazy(() => import("./forms/course/index")),
     },

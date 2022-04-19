@@ -15,7 +15,7 @@ const schema = yup.object().shape({
 
 const Form = ({ submit, setSubmit, setDisable }) => {
     const dispatch = useDispatch();
-    const { id } = useParams();
+    const { id, elmDay } = useParams();
     const { entity, course } = useSelector(store => store.schedule.v_classroom);
     const [host, setHost] = useState("");
     const [hosts, setHosts] = useState(id && course?.hosts ? course.hosts : []);
@@ -51,8 +51,8 @@ const Form = ({ submit, setSubmit, setDisable }) => {
     const handleSubmit = () => {
         if (id) {
             const { day, hour, name, description, _id } = getValues();
-            const courseToUpdate = { hour, name, description, hosts, _id };
-            dispatch(editCourse(courseToUpdate, day, entity._id));
+            const courseToUpdate = { hour, name, description, hosts, _id, day };
+            dispatch(editCourse(courseToUpdate, elmDay, entity._id));
         } else {
             const { day, hour, name, description } = getValues();
             const newCourse = {

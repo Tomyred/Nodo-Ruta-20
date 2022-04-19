@@ -133,7 +133,7 @@ const RadioStation = () => {
                 <p>Programación</p>
             </div>
             <div className="radio__body">
-                <Link to="/schedule/radio/new-station">
+                <Link to="new-station">
                     <button>Nueva emisora</button>
                 </Link>
 
@@ -178,7 +178,7 @@ const RadioStation = () => {
                             PROGRAMACIÓN DE {entity.stationName.toUpperCase()}
                         </strong>
 
-                        <Link to="/schedule/radio/add-broadcast">
+                        <Link to="new-broadcast">
                             <button className="new__broadcast_button">
                                 Nuevo programa
                             </button>

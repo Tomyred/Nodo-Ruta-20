@@ -15,7 +15,7 @@ const schema = yup.object().shape({
 
 const Form = ({ submit, setSubmit, setDisable }) => {
     const dispatch = useDispatch();
-    const { id } = useParams();
+    const { id, elmDay } = useParams();
     const { entity, broadcast } = useSelector(
         store => store.schedule.radioStation
     );
@@ -57,8 +57,15 @@ const Form = ({ submit, setSubmit, setDisable }) => {
     const handleSubmit = () => {
         if (id) {
             const { day, hour, name, description, _id } = getValues();
-            const broadcasToUpdate = { hour, name, description, hosts, _id };
-            dispatch(editBroadcast(broadcasToUpdate, day, entity._id));
+            const broadcasToUpdate = {
+                hour,
+                name,
+                description,
+                hosts,
+                _id,
+                day,
+            };
+            dispatch(editBroadcast(broadcasToUpdate, elmDay, entity._id));
         } else {
             const { day, hour, name, description } = getValues();
             const newBroadcast = {

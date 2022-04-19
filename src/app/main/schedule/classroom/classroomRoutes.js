@@ -22,7 +22,7 @@ const radioRoutes = [
     //     component: lazy(() => import("./forms/classroom/index")),
     // },
     {
-        path: "/schedule/classroom/new-course/:id",
+        path: "/schedule/classroom/edit-course/:elmDay/:id",
         exact: true,
         component: lazy(() => import("./forms/course/index")),
     },

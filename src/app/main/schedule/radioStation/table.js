@@ -45,7 +45,7 @@ const Table = ({ radioStationStore, dispatch }) => {
 
     const editClickHandler = (broadcast, day) => {
         dispatch(setBroadcast(broadcast, day));
-        navigate(`new-broadcast/${broadcast._id}`);
+        navigate(`edit-broadcast/${day}/${broadcast._id}`);
     };
 
     if (radioStationStore.loading) {
@@ -76,75 +76,84 @@ const Table = ({ radioStationStore, dispatch }) => {
                         closeModal={closeModal}
                     />
                 )}
-                <table className="schedule__table">
-                    <thead>
-                        <tr>
-                            <th id="daycell">
-                                {element.day.toLocaleUpperCase()}
-                            </th>
-                            <th> PROGRAMAS </th>
-                            <th> CONDUCTORES/AS </th>
-                            <th id="actions">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {sortByTime(element.broadcasts).map((broadcast, j) => {
-                            return (
-                                <tr key={j}>
-                                    <td> {broadcast.hour} </td>
-                                    <td> {broadcast.name} </td>
-                                    <td>
-                                        {broadcast.hosts.map((host, i) => {
-                                            if (
-                                                i + 1 <
-                                                broadcast.hosts.length
-                                            ) {
-                                                return `${host}, `;
-                                            } else {
-                                                return host;
-                                            }
-                                        })}
-                                    </td>
-                                    <td className="action__cell">
-                                        <span
-                                            className="material-icons md-36 action__button"
-                                            onClick={() =>
-                                                deleteBroadcast(
-                                                    broadcast,
-                                                    element.day
-                                                )
-                                            }
-                                        >
-                                            delete
-                                        </span>
-                                        <span
-                                            onClick={() =>
-                                                editClickHandler(
-                                                    broadcast,
-                                                    element.day
-                                                )
-                                            }
-                                            className="material-icons md-36 action__button"
-                                        >
-                                            edit
-                                        </span>
-                                        <span
-                                            onClick={() =>
-                                                showDetail(
-                                                    broadcast,
-                                                    element.day
-                                                )
-                                            }
-                                            className="material-icons md-36 action__button"
-                                        >
-                                            search
-                                        </span>
-                                    </td>
-                                </tr>
-                            );
-                        })}
-                    </tbody>
-                </table>
+                {element.broadcasts.length === 0 ? (
+                    ""
+                ) : (
+                    <table className="schedule__table">
+                        <thead>
+                            <tr>
+                                <th id="daycell">
+                                    {element.day.toUpperCase()}
+                                </th>
+                                <th> PROGRAMAS </th>
+                                <th> CONDUCTORES/AS </th>
+                                <th id="actions">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {sortByTime(element.broadcasts).map(
+                                (broadcast, j) => {
+                                    return (
+                                        <tr key={j}>
+                                            <td> {broadcast.hour} </td>
+                                            <td> {broadcast.name} </td>
+                                            <td>
+                                                {broadcast.hosts.map(
+                                                    (host, i) => {
+                                                        if (
+                                                            i + 1 <
+                                                            broadcast.hosts
+                                                                .length
+                                                        ) {
+                                                            return `${host}, `;
+                                                        } else {
+                                                            return host;
+                                                        }
+                                                    }
+                                                )}
+                                            </td>
+                                            <td className="action__cell">
+                                                <span
+                                                    className="material-icons md-36 action__button"
+                                                    onClick={() =>
+                                                        deleteBroadcast(
+                                                            broadcast,
+                                                            element.day
+                                                        )
+                                                    }
+                                                >
+                                                    delete
+                                                </span>
+                                                <span
+                                                    onClick={() =>
+                                                        editClickHandler(
+                                                            broadcast,
+                                                            element.day
+                                                        )
+                                                    }
+                                                    className="material-icons md-36 action__button"
+                                                >
+                                                    edit
+                                                </span>
+                                                <span
+                                                    onClick={() =>
+                                                        showDetail(
+                                                            broadcast,
+                                                            element.day
+                                                        )
+                                                    }
+                                                    className="material-icons md-36 action__button"
+                                                >
+                                                    search
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    );
+                                }
+                            )}
+                        </tbody>
+                    </table>
+                )}
             </div>
         );
     });

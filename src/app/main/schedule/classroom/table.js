@@ -45,7 +45,7 @@ const Table = ({ classroomStore, dispatch }) => {
 
     const editClickHandler = (course, day) => {
         dispatch(setCourse(course, day));
-        navigate(`new-course/${course._id}`);
+        navigate(`edit-course/${day}/${course._id}`);
     };
 
     if (classroomStore.loading) {
@@ -76,69 +76,79 @@ const Table = ({ classroomStore, dispatch }) => {
                         closeModal={closeModal}
                     />
                 )}
-                <table className="schedule__table">
-                    <thead>
-                        <tr>
-                            <th id="daycell">
-                                {element.day.toLocaleUpperCase()}
-                            </th>
-                            <th> PROGRAMAS </th>
-                            <th> INSTRUCTORES/AS </th>
-                            <th id="actions">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {sortByTime(element.courses).map((course, j) => {
-                            return (
-                                <tr key={j}>
-                                    <td> {course.hour} </td>
-                                    <td> {course.name} </td>
-                                    <td>
-                                        {course.hosts.map((host, i) => {
-                                            if (i + 1 < course.hosts.length) {
-                                                return `${host}, `;
-                                            } else {
-                                                return host;
-                                            }
-                                        })}
-                                    </td>
-                                    <td className="action__cell">
-                                        <span
-                                            className="material-icons md-36 action__button"
-                                            onClick={() =>
-                                                deleteCourse(
-                                                    course,
-                                                    element.day
-                                                )
-                                            }
-                                        >
-                                            delete
-                                        </span>
-                                        <span
-                                            onClick={() =>
-                                                editClickHandler(
-                                                    course,
-                                                    element.day
-                                                )
-                                            }
-                                            className="material-icons md-36 action__button"
-                                        >
-                                            edit
-                                        </span>
-                                        <span
-                                            onClick={() =>
-                                                showDetail(course, element.day)
-                                            }
-                                            className="material-icons md-36 action__button"
-                                        >
-                                            search
-                                        </span>
-                                    </td>
-                                </tr>
-                            );
-                        })}
-                    </tbody>
-                </table>
+                {element.courses.length === 0 ? (
+                    ""
+                ) : (
+                    <table className="schedule__table">
+                        <thead>
+                            <tr>
+                                <th id="daycell">
+                                    {element.day.toUpperCase()}
+                                </th>
+                                <th> PROGRAMAS </th>
+                                <th> INSTRUCTORES/AS </th>
+                                <th id="actions">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {sortByTime(element.courses).map((course, j) => {
+                                return (
+                                    <tr key={j}>
+                                        <td> {course.hour} </td>
+                                        <td> {course.name} </td>
+                                        <td>
+                                            {course.hosts.map((host, i) => {
+                                                if (
+                                                    i + 1 <
+                                                    course.hosts.length
+                                                ) {
+                                                    return `${host}, `;
+                                                } else {
+                                                    return host;
+                                                }
+                                            })}
+                                        </td>
+                                        <td className="action__cell">
+                                            <span
+                                                className="material-icons md-36 action__button"
+                                                onClick={() =>
+                                                    deleteCourse(
+                                                        course,
+                                                        element.day
+                                                    )
+                                                }
+                                            >
+                                                delete
+                                            </span>
+                                            <span
+                                                onClick={() =>
+                                                    editClickHandler(
+                                                        course,
+                                                        element.day
+                                                    )
+                                                }
+                                                className="material-icons md-36 action__button"
+                                            >
+                                                edit
+                                            </span>
+                                            <span
+                                                onClick={() =>
+                                                    showDetail(
+                                                        course,
+                                                        element.day
+                                                    )
+                                                }
+                                                className="material-icons md-36 action__button"
+                                            >
+                                                search
+                                            </span>
+                                        </td>
+                                    </tr>
+                                );
+                            })}
+                        </tbody>
+                    </table>
+                )}
             </div>
         );
     });

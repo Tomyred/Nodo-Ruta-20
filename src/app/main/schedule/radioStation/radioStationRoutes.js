@@ -17,7 +17,7 @@ const radioRoutes = [
         component: lazy(() => import("./forms/broadcast")),
     },
     {
-        path: "/schedule/radio/new-broadcast/:id",
+        path: "/schedule/radio/edit-broadcast/:elmDay/:id",
         exact: true,
         component: lazy(() => import("./forms/broadcast")),
     },
@@ -26,11 +26,11 @@ const radioRoutes = [
         exact: true,
         component: lazy(() => import("./forms/station")),
     },
-    {
-        path: "/schedule/radio/new-station/:id",
-        exact: true,
-        component: lazy(() => import("./forms/station")),
-    },
+    // {
+    //     path: "/schedule/radio/new-station/:id",
+    //     exact: true,
+    //     component: lazy(() => import("./forms/station")),
+    // },
 ];
 
 export default radioRoutes;
