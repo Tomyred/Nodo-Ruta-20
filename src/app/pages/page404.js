@@ -4,7 +4,7 @@ const Page404 = () => {
     return (
         <div className="flex__center">
             <div>
-                <h1>ERROR 404</h1>
+                <h2>404</h2>
                 <p>Página no encontrada</p>
             </div>
         </div>

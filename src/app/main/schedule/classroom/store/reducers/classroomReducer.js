@@ -28,7 +28,15 @@ export default function classroomReducer(state = initState, action) {
                 loading: true,
                 loaded: false,
                 loadingError: false,
+                saving: false,
                 saved: false,
+                savingError: false,
+                deleting: false,
+                deleted: false,
+                deletingError: false,
+                deletingClassroom: false,
+                classroomDeleted: false,
+                deletingClassroomError: false,
             };
         case "CLASSROOM_LOAD_SUCCEED":
             return {
@@ -93,14 +101,14 @@ export default function classroomReducer(state = initState, action) {
                 loaded: false,
                 loadingError: true,
             };
-        case "SAVE_INIT":
+        case "COURSE_SAVE_INIT":
             return {
                 ...state,
                 saving: true,
                 saved: false,
                 savingError: false,
             };
-        case "SAVE_SUCCEED":
+        case "COURSE_SAVE_SUCCEED":
             return {
                 ...state,
                 loaded: false,
@@ -108,7 +116,7 @@ export default function classroomReducer(state = initState, action) {
                 saved: true,
                 savingError: false,
             };
-        case "SAVE_FAILED":
+        case "COURSE_SAVE_FAILED":
             return {
                 ...state,
                 saving: false,

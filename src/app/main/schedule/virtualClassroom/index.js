@@ -137,7 +137,7 @@ const Classroom = () => {
 
                 <div className="select__container">
                     <select
-                        defaultValue=""
+                        // value={entity ? entity.classroomName : ""}
                         onChange={e => {
                             getClassroom(e.target.value);
                         }}

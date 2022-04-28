@@ -123,22 +123,22 @@ export const loadClassroomNames = () => async dispatch => {
 export const addCourse = (course, id) => async dispatch => {
     try {
         dispatch({
-            type: types.SAVE_INIT,
+            type: types.COURSE_SAVE_INIT,
         });
         const res = await api.update(course, id);
         if (res.data.error === false) {
             dispatch({
-                type: types.SAVE_SUCCEED,
+                type: types.COURSE_SAVE_SUCCEED,
             });
         } else {
             dispatch({
-                type: types.SAVE_FAILED,
+                type: types.COURSE_SAVE_FAILED,
             });
         }
     } catch (error) {
         console.error(error);
         dispatch({
-            type: types.SAVE_FAILED,
+            type: types.COURSE_SAVE_FAILED,
         });
     }
 };
@@ -170,22 +170,22 @@ export const removeCourse = (course, day, id) => async dispatch => {
 export const editCourse = (updated, day, id) => async dispatch => {
     try {
         dispatch({
-            type: types.SAVE_INIT,
+            type: types.COURSE_SAVE_INIT,
         });
         const res = await api.updateCourse(updated, day, id);
         if (res.data.error === false) {
             dispatch({
-                type: types.SAVE_SUCCEED,
+                type: types.COURSE_SAVE_SUCCEED,
             });
         } else {
             dispatch({
-                type: types.SAVE_FAILED,
+                type: types.COURSE_SAVE_FAILED,
             });
         }
     } catch (error) {
         console.error(error);
         dispatch({
-            type: types.SAVE_FAILED,
+            type: types.COURSE_SAVE_FAILED,
         });
     }
 };

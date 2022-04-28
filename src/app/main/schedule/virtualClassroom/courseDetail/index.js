@@ -1,9 +1,8 @@
 import React from "react";
 import Modal from "react-modal/lib/components/Modal";
 
-const CourseDetail = ({ v_classroom, closeModal }) => {
-    const { course } = v_classroom;
-
+const CourseDetail = ({ v_classroomStore, closeModal }) => {
+    const { course } = v_classroomStore;
     return (
         <Modal
             ariaHideApp={false}
