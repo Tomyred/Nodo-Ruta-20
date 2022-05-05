@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 import userReducer from "../main/settings/store/userReducer";
-import linkConsoleReducer from "../main/linkConsole/store/reducers/linkConsoleReducer";
+import linkConsoleReducer from "../main/linkConsole/store/reducers";
 import scheduleReducer from "../main/schedule/store";
 
 const rootReducer = combineReducers({

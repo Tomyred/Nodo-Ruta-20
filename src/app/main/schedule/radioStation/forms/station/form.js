@@ -3,7 +3,6 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, useForm } from "react-hook-form";
 import { createRadioStation } from "../../store/actions";
-import { useDispatch } from "react-redux";
 
 const schema = yup.object().shape({
     stationName: yup.string().required("Este campo es requerido"),
@@ -14,9 +13,7 @@ const schema = yup.object().shape({
     reference: yup.string(),
 });
 
-const Form = ({ submit, setSubmit, setDisable }) => {
-    const dispatch = useDispatch();
-
+const Form = ({ submit, setSubmit, setDisable, dispatch }) => {
     const defaultValues = {};
     const [host, setHost] = useState("");
     const [hosts, setHosts] = useState([]);

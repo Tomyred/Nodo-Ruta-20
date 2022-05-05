@@ -5,8 +5,10 @@ import Page404 from "../../pages/page404";
 import TopNavbar from "./topNavbar";
 import Sidebar from "./sidebar";
 import LoadingScreen from "../../pages/loadingScreen";
+import { useDispatch } from "react-redux";
 
 const Dashboard = () => {
+    const dispatch = useDispatch();
     return (
         <div className="app">
             <div className="dashboard">
@@ -36,7 +38,9 @@ const Dashboard = () => {
                                             <Suspense
                                                 fallback={<LoadingScreen />}
                                             >
-                                                <route.component />
+                                                <route.component
+                                                    dispatch={dispatch}
+                                                />
                                             </Suspense>
                                         }
                                     />

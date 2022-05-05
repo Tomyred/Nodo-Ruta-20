@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import {
     deleteRadioStation,
     loadRadioById,
@@ -10,8 +10,7 @@ import Modal from "react-modal/lib/components/Modal";
 import LoadingScreen from "../../../pages/loadingScreen";
 import { Link } from "react-router-dom";
 
-const RadioStation = () => {
-    const dispatch = useDispatch();
+const RadioStation = ({ dispatch }) => {
     const radioStationStore = useSelector(store => store.schedule.radioStation);
     const {
         namesLoaded,

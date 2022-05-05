@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router";
 import LoadingScreen from "../../pages/loadingScreen";
@@ -7,29 +6,35 @@ import Card from "./card";
 import DialogForm from "./dialog/form";
 import { loadLinks, removeLink, setEntityToEdit } from "./store/actions";
 
-const LinkConsole = () => {
-    const dispatch = useDispatch();
-    const [open, setOpen] = useState(false);
-    const links = useSelector(store => store.linkConsole.data);
-    const loading = useSelector(store => store.linkConsole.loading);
-    const saved = useSelector(store => store.linkConsole.saved);
-    const deleted = useSelector(store => store.linkConsole.deleted);
-    const { group, title } = useParams();
+let typingTimer;
 
-    useEffect(() => {
-        dispatch(loadLinks(group));
-        // eslint-disable-next-line
-    }, [group]);
+const LinkConsole = ({ dispatch }) => {
+    const [open, setOpen] = useState(false);
+    const links = useSelector(store => store.linkConsole.loadLinksReducer.data);
+    const loading = useSelector(
+        store => store.linkConsole.loadLinksReducer.loading
+    );
+    const saved = useSelector(store => store.linkConsole.saveLinkReducer.saved);
+    const deleted = useSelector(
+        store => store.linkConsole.deleteLinkReducer.deleted
+    );
+    const { group, title } = useParams();
 
     useEffect(() => {
         if (saved) {
             dispatch(loadLinks(group));
         }
+    }, [saved, dispatch, group]);
+
+    useEffect(() => {
+        dispatch(loadLinks(group));
+    }, [dispatch, group]);
+
+    useEffect(() => {
         if (deleted) {
             dispatch(loadLinks(group));
         }
-        // eslint-disable-next-line
-    }, [saved, deleted]);
+    }, [deleted, dispatch, group]);
 
     const setEntity = entity => {
         dispatch(setEntityToEdit(entity));
@@ -41,7 +46,6 @@ const LinkConsole = () => {
     };
 
     const handleKeyUp = e => {
-        let typingTimer;
         const searchText = e.target.value;
 
         clearTimeout(typingTimer);
