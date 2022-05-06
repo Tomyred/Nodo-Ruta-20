@@ -7,7 +7,7 @@ import LoadingScreen from "../../../../../pages/loadingScreen";
 const Station = ({ store, dispatch }) => {
     const [disable, setDisable] = useState(false);
     const [submit, setSubmit] = useState(false);
-    const { saved, saving } = store.schedule.classroom.saved;
+    const { saved, saving } = store.schedule.classroom;
     const navigate = useNavigate();
 
     useEffect(() => {
