@@ -10,10 +10,9 @@ let typingTimer;
 const LinkConsole = ({ dispatch, store }) => {
     const [open, setOpen] = useState(false);
 
-    const { links, loading } = store.linkConsole.loadLinksReducer.data;
+    const { data, loading } = store.linkConsole.loadLinksReducer;
     const saved = store.linkConsole.saveLinkReducer.saved;
     const deleted = store.linkConsole.deleteLinkReducer.deleted;
-
     const { group, title } = useParams();
 
     useEffect(() => {
@@ -52,13 +51,13 @@ const LinkConsole = ({ dispatch, store }) => {
     };
 
     const cards =
-        links.length === 0 ||
-        links.filter(link =>
+        data.length === 0 ||
+        data.filter(link =>
             link.group.toLowerCase().includes(group.toLowerCase())
         ).length === 0 ? (
             <h3 className="grid__center">No hay datos</h3>
         ) : (
-            links.map((link, i) => {
+            data.map((link, i) => {
                 return (
                     <Card
                         key={i}

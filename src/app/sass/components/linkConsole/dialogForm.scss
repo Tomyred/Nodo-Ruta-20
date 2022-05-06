@@ -3,6 +3,9 @@
 .modal {
     @include modal();
     padding: 20px;
+    box-shadow: 0px 15px 31px 1px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 0px 15px 31px 1px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 15px 31px 1px rgba(0,0,0,0.75);
 }
 
 .form__element {

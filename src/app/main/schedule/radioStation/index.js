@@ -92,7 +92,7 @@ const RadioStation = ({ dispatch, store }) => {
                 className="delete__modal"
             >
                 <p>
-                    ¿Seguro que quieres eliminar la emisora{" "}
+                    ¿Seguro que quieres eliminar
                     <strong> {entity.stationName}</strong>?
                 </p>
                 <div>

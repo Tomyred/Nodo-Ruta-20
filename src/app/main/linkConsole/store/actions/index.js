@@ -2,7 +2,6 @@ import * as types from "./types";
 import * as api from "../api";
 
 export const loadLinks = (group, searchText) => async dispatch => {
-    console.log("render");
     try {
         dispatch({
             type: types.CONSOLE_LINKS_LOAD_INIT,

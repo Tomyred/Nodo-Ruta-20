@@ -23,7 +23,6 @@ const Classroom = ({ dispatch, store }) => {
         loading,
         classroomDeleted,
     } = v_classroomStore;
-
     const [classroomId, setClassroomId] = useState(entity ? entity._id : "");
     const [deleteModal, setDeleteModal] = useState(false);
 
@@ -90,8 +89,8 @@ const Classroom = ({ dispatch, store }) => {
                 className="delete__modal"
             >
                 <p>
-                    ¿Seguro que quieres eliminar el aula?
-                    <strong> {entity.classRoomName}</strong>?
+                    ¿Seguro que quieres eliminar
+                    <strong> {entity.classroomName}</strong>?
                 </p>
                 <div>
                     <button
