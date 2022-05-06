@@ -3,7 +3,6 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, useForm } from "react-hook-form";
 import { addBroadcastToRadio, editBroadcast } from "../../store/actions";
-import { useSelector } from "react-redux";
 import { useParams } from "react-router";
 
 const schema = yup.object().shape({
@@ -13,11 +12,10 @@ const schema = yup.object().shape({
     description: yup.string(),
 });
 
-const Form = ({ submit, setSubmit, setDisable, dispatch }) => {
+const Form = ({ submit, setSubmit, setDisable, dispatch, store }) => {
     const { id, elmDay } = useParams();
-    const { entity, broadcast } = useSelector(
-        store => store.schedule.radioStation
-    );
+    const { entity, broadcast } = store.schedule.radioStation;
+
     const [host, setHost] = useState("");
     const [hosts, setHosts] = useState(
         id && broadcast?.hosts ? broadcast.hosts : []

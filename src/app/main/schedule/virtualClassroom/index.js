@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import {
     deleteClassroom,
     loadClassroomById,
@@ -10,8 +9,8 @@ import Modal from "react-modal/lib/components/Modal";
 import LoadingScreen from "../../../pages/loadingScreen";
 import { Link } from "react-router-dom";
 
-const Classroom = ({ dispatch }) => {
-    const v_classroomStore = useSelector(store => store.schedule.v_classroom);
+const Classroom = ({ dispatch, store }) => {
+    const v_classroomStore = store.schedule.v_classroom;
     const {
         namesLoaded,
         saved,

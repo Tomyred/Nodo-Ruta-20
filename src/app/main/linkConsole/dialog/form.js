@@ -1,7 +1,6 @@
 import React from "react";
 import { Controller, useForm } from "react-hook-form";
 import Modal from "react-modal/lib/components/Modal";
-import { useSelector } from "react-redux";
 import getRandomColor from "./formColors";
 import { saveLink, setEntityToEdit, updateLink } from "../store/actions";
 import * as yup from "yup";
@@ -19,8 +18,8 @@ const schema = yup.object().shape({
     url: yup.string().required("Este campo es requerido"),
 });
 
-const DialogForm = ({ setOpen, group, dispatch }) => {
-    const entity = useSelector(store => store.linkConsole.entity);
+const DialogForm = ({ setOpen, group, dispatch, store }) => {
+    const entity = store.linkConsole.entity;
 
     function closeModal() {
         if (entity) {

@@ -5,10 +5,11 @@ import Page404 from "../../pages/page404";
 import TopNavbar from "./topNavbar";
 import Sidebar from "./sidebar";
 import LoadingScreen from "../../pages/loadingScreen";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const Dashboard = () => {
     const dispatch = useDispatch();
+    const store = useSelector(store => store);
     return (
         <div className="app">
             <div className="dashboard">
@@ -40,6 +41,7 @@ const Dashboard = () => {
                                             >
                                                 <route.component
                                                     dispatch={dispatch}
+                                                    store={store}
                                                 />
                                             </Suspense>
                                         }

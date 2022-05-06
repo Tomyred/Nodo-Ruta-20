@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import { useParams } from "react-router";
 import LoadingScreen from "../../pages/loadingScreen";
 import Card from "./card";
@@ -8,16 +7,13 @@ import { loadLinks, removeLink, setEntityToEdit } from "./store/actions";
 
 let typingTimer;
 
-const LinkConsole = ({ dispatch }) => {
+const LinkConsole = ({ dispatch, store }) => {
     const [open, setOpen] = useState(false);
-    const links = useSelector(store => store.linkConsole.loadLinksReducer.data);
-    const loading = useSelector(
-        store => store.linkConsole.loadLinksReducer.loading
-    );
-    const saved = useSelector(store => store.linkConsole.saveLinkReducer.saved);
-    const deleted = useSelector(
-        store => store.linkConsole.deleteLinkReducer.deleted
-    );
+
+    const { links, loading } = store.linkConsole.loadLinksReducer.data;
+    const saved = store.linkConsole.saveLinkReducer.saved;
+    const deleted = store.linkConsole.deleteLinkReducer.deleted;
+
     const { group, title } = useParams();
 
     useEffect(() => {
@@ -84,6 +80,7 @@ const LinkConsole = ({ dispatch }) => {
                     group={group}
                     setOpen={setOpen}
                     dispatch={dispatch}
+                    store={store}
                 />
             )}
             <div>

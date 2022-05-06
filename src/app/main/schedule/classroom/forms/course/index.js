@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Form from "./form";
 import { useNavigate } from "react-router-dom";
 import LoadingScreen from "../../../../../pages/loadingScreen";
 
-const Broadcast = () => {
+const Broadcast = ({ store, dispatch }) => {
     const [disable, setDisable] = useState(false);
     const [submit, setSubmit] = useState(false);
-    const saved = useSelector(store => store.schedule.classroom.saved);
-    const saving = useSelector(store => store.schedule.classroom.saving);
+    const { saved, saving } = store.schedule.classroom;
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -41,6 +39,8 @@ const Broadcast = () => {
                 submit={submit}
                 setSubmit={setSubmit}
                 setDisable={setDisable}
+                dispatch={dispatch}
+                store={store}
             />
         </div>
     );

@@ -3,7 +3,6 @@ import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Controller, useForm } from "react-hook-form";
 import { addCourse, editCourse } from "../../store/actions";
-import { useSelector } from "react-redux";
 import { useParams } from "react-router";
 
 const schema = yup.object().shape({
@@ -13,9 +12,9 @@ const schema = yup.object().shape({
     description: yup.string(),
 });
 
-const Form = ({ submit, setSubmit, setDisable, dispatch }) => {
+const Form = ({ submit, setSubmit, setDisable, dispatch, store }) => {
     const { id, elmDay } = useParams();
-    const { entity, course } = useSelector(store => store.schedule.classroom);
+    const { entity, course } = store.schedule.classroom;
     const [host, setHost] = useState("");
     const [hosts, setHosts] = useState(id && course?.hosts ? course.hosts : []);
     const defaultValues = id ? course : { day: "Lunes" };
