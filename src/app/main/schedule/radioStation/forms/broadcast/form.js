@@ -20,14 +20,14 @@ const Form = ({ submit, setSubmit, setDisable, dispatch, store }) => {
     const [hosts, setHosts] = useState(
         id && broadcast?.hosts ? broadcast.hosts : []
     );
-    const defaultValues = id ? broadcast : "";
+    const defaultValues = id ? broadcast : { day: "Lunes" };
     const { formState, control, getValues } = useForm({
         defaultValues,
         mode: "onChange",
         resolver: yupResolver(schema),
     });
     const { isValid, errors } = formState;
-
+    console.log(isValid);
     useEffect(() => {
         if (isValid && hosts.length > 0) {
             setDisable(true);
